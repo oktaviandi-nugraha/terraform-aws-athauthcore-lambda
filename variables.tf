@@ -1,7 +1,7 @@
 variable "api_name" {
   type        = "string"
   description = "The name of the API"
-  default     = "athauthapi"
+  default     = "athauthcoreapi"
 }
 
 variable "environment" {
