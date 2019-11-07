@@ -207,11 +207,6 @@ variable "ops_scope" {
   default     = "ops"
 }
 
-variable "extension_api_url" {
-  type        = "string"
-  description = "URL of Auth0 extension url"
-}
-
 variable "auth0_mgmt_api_url" {
   type        = "string"
   description = "URL of Auth0 management API"
