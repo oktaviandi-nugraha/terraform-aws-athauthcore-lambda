@@ -1,0 +1,2147 @@
+---
+swagger: "2.0"
+info:
+  version: "2018-11-23T04:07:16Z"
+  title: "${api_name}"
+schemes:
+- "https"
+paths:
+  /groups/{application}:
+    get:
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Authorization"
+        in: "header"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "200 response"
+          schema:
+            $ref: "#/definitions/GroupsResponse"
+      security:
+      - Auth0Authorizer: []
+      x-amazon-apigateway-integration:
+        uri: "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/${get_all_group_lambda}/invocations"
+        responses:
+          default:
+            statusCode: "200"
+            responseTemplates:
+              application/json: "     #set($inputRoot = $input.path('$'))\n      [\n\
+                \          #foreach($elem in $inputRoot)\n          {\n          \
+                \    \"id\" : \"$elem.id\",\n              \"name\" : \"$elem.name\"\
+                ,\n              \"description\" : \"$elem.description\"         \
+                \               \n          } \n          #if($foreach.hasNext),#end\n\
+                \          #end\n      ]\n  "
+        requestTemplates:
+          application/json: "{\n   \"client_id\": \"$input.params('application')\"\
+            ,\n   \"api_request_id\": \"$input.params('API-Request-Id')\",\n   \"\
+            api_client_id\": \"$input.params('API-Client-Id')\"\n}\n"
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+        type: "aws"
+    post:
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Authorization"
+        in: "header"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "GroupCreateRequest"
+        required: true
+        schema:
+          $ref: "#/definitions/GroupCreateRequest"
+      responses:
+        200:
+          description: "200 response"
+          schema:
+            $ref: "#/definitions/GroupsResponse"
+        400:
+          description: "400 response"
+          schema:
+            $ref: "#/definitions/GenericErrorResponse"
+        500:
+          description: "500 response"
+          schema:
+            $ref: "#/definitions/GenericErrorResponse"
+      security:
+      - Auth0Authorizer: []
+      x-amazon-apigateway-integration:
+        uri: "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/${save_group_lambda}/invocations"
+        responses:
+          ^\[InternalServiceError\].*:
+            statusCode: "500"
+            responseTemplates:
+              application/json: "      {\n        \"errorType\": $input.json('$.errorType'),\n\
+                \        \"errorMessage\": $input.json('$.errorMessage')\n      }\n\
+                \  "
+          default:
+            statusCode: "200"
+            responseTemplates:
+              application/json: "      {\n        \"id\": $input.json('$._id'),\n\
+                \        \"name\": $input.json('$.name'),\n        \"description\"\
+                : $input.json('$.description')\n      }\n  "
+          ^\[BadRequest\].*:
+            statusCode: "400"
+            responseTemplates:
+              application/json: "      {\n        \"errorType\": $input.json('$.errorType'),\n\
+                \        \"errorMessage\": $input.json('$.errorMessage')\n      }\n\
+                \  "
+        requestTemplates:
+          application/json: "{\n   \"name\": $input.json('$.name'),\n   \"description\"\
+            : $input.json('$.description'),\n   \"client_id\": \"$input.params('application')\"\
+            ,\n   \"api_request_id\": \"$input.params('API-Request-Id')\",\n   \"\
+            api_client_id\": \"$input.params('API-Client-Id')\"\n}\n"
+        passthroughBehavior: "never"
+        httpMethod: "POST"
+        type: "aws"
+    put:
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Authorization"
+        in: "header"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "GroupUpdateRequest"
+        required: true
+        schema:
+          $ref: "#/definitions/GroupUpdateRequest"
+      responses:
+        200:
+          description: "200 response"
+          schema:
+            $ref: "#/definitions/GroupsResponse"
+        400:
+          description: "400 response"
+          schema:
+            $ref: "#/definitions/GenericErrorResponse"
+        500:
+          description: "500 response"
+          schema:
+            $ref: "#/definitions/GenericErrorResponse"
+        404:
+          description: "404 response"
+          schema:
+            $ref: "#/definitions/GenericErrorResponse"
+      security:
+      - Auth0Authorizer: []
+      x-amazon-apigateway-integration:
+        uri: "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/${update_group_lambda}/invocations"
+        responses:
+          ^\[InternalServiceError\].*:
+            statusCode: "500"
+            responseTemplates:
+              application/json: "      {\n        \"errorType\": $input.json('$.errorType'),\n\
+                \        \"errorMessage\": $input.json('$.errorMessage')\n      }\n\
+                \  "
+          default:
+            statusCode: "200"
+            responseTemplates:
+              application/json: "      {\n        \"id\": $input.json('$._id'),\n\
+                \        \"name\": $input.json('$.name'),\n        \"description\"\
+                : $input.json('$.description')\n      }\n  "
+          ^\[NotFound\].*:
+            statusCode: "404"
+            responseTemplates:
+              application/json: "      {\n        \"errorType\": $input.json('$.errorType'),\n\
+                \        \"errorMessage\": $input.json('$.errorMessage')\n      }\n\
+                \  "
+          ^\[BadRequest\].*:
+            statusCode: "400"
+            responseTemplates:
+              application/json: "      {\n        \"errorType\": $input.json('$.errorType'),\n\
+                \        \"errorMessage\": $input.json('$.errorMessage')\n      }\n\
+                \  "
+        requestTemplates:
+          application/json: "{\n\"id\": $input.json('$.id'),\n\"name\": $input.json('$.name'),\n\
+            \"description\": $input.json('$.description'),\n\"client_id\": \"$input.params('application')\"\
+            ,\n\"api_request_id\": \"$input.params('API-Request-Id')\",\n\"api_client_id\"\
+            : \"$input.params('API-Client-Id')\"\n}\n"
+        passthroughBehavior: "never"
+        httpMethod: "POST"
+        type: "aws"
+    delete:
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "query"
+        required: true
+        type: "string"
+      - name: "Authorization"
+        in: "header"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "200 response"
+        500:
+          description: "500 response"
+          schema:
+            $ref: "#/definitions/GenericErrorResponse"
+        404:
+          description: "404 response"
+          schema:
+            $ref: "#/definitions/GenericErrorResponse"
+      security:
+      - Auth0Authorizer: []
+      x-amazon-apigateway-integration:
+        uri: "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/${delete_group_lambda}/invocations"
+        responses:
+          ^\[InternalServiceError\].*:
+            statusCode: "500"
+            responseTemplates:
+              application/json: "      {\n        \"errorType\": $input.json('$.errorType'),\n\
+                \        \"errorMessage\": $input.json('$.errorMessage')\n      }\n\
+                \  "
+          default:
+            statusCode: "200"
+          ^\[NotFound\].*:
+            statusCode: "404"
+            responseTemplates:
+              application/json: "      {\n        \"errorType\": $input.json('$.errorType'),\n\
+                \        \"errorMessage\": $input.json('$.errorMessage')\n      }\n\
+                \  "
+        requestTemplates:
+          application/json: "{\n\"id\": \"$input.params('id')\",\n\"client_id\": \"\
+            $input.params('application')\",\n\"api_request_id\": \"$input.params('API-Request-Id')\"\
+            ,\n\"api_client_id\": \"$input.params('API-Client-Id')\"\n}\n"
+        passthroughBehavior: "never"
+        httpMethod: "POST"
+        type: "aws"
+  /groups/{application}/id:
+    get:
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "query"
+        required: true
+        type: "string"
+      - name: "Authorization"
+        in: "header"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "200 response"
+          schema:
+            $ref: "#/definitions/GroupsResponse"
+        500:
+          description: "500 response"
+          schema:
+            $ref: "#/definitions/GenericErrorResponse"
+        404:
+          description: "404 response"
+          schema:
+            $ref: "#/definitions/GenericErrorResponse"
+      security:
+      - Auth0Authorizer: []
+      x-amazon-apigateway-integration:
+        uri: "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/${get_group_by_id_lambda}/invocations"
+        responses:
+          ^\[InternalServiceError\].*:
+            statusCode: "500"
+            responseTemplates:
+              application/json: "      {\n        \"errorType\": $input.json('$.errorType'),\n\
+                \        \"errorMessage\": $input.json('$.errorMessage')\n      }\n\
+                \  "
+          default:
+            statusCode: "200"
+            responseTemplates:
+              application/json: "      {\n        \"id\": $input.json('$._id'),\n\
+                \        \"name\": $input.json('$.name'),\n        \"description\"\
+                : $input.json('$.description')\n      }\n  "
+          ^\[NotFound\].*:
+            statusCode: "404"
+            responseTemplates:
+              application/json: "      {\n        \"errorType\": $input.json('$.errorType'),\n\
+                \        \"errorMessage\": $input.json('$.errorMessage')\n      }\n\
+                \  "
+        requestTemplates:
+          application/json: "{\n\"id\": \"$input.params('id')\",\n\"client_id\": \"\
+            $input.params('application')\",\n\"api_request_id\": \"$input.params('API-Request-Id')\"\
+            ,\n\"api_client_id\": \"$input.params('API-Client-Id')\"\n}\n"
+        passthroughBehavior: "never"
+        httpMethod: "POST"
+        type: "aws"
+  /groups/{application}/id/members:
+    get:
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "page"
+        in: "query"
+        required: true
+        schema:
+          type: integer
+          minimum: 0
+      - name: "id"
+        in: "query"
+        required: true
+        type: "string"
+      - name: "per_page"
+        in: "query"
+        required: true
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+      - name: "Authorization"
+        in: "header"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "200 response"
+          schema:
+            $ref: "#/definitions/GroupMembershipResponse"
+        500:
+          description: "500 response"
+          schema:
+            $ref: "#/definitions/GenericErrorResponse"
+        404:
+          description: "404 response"
+          schema:
+            $ref: "#/definitions/GenericErrorResponse"
+      security:
+      - Auth0Authorizer: []
+      x-amazon-apigateway-integration:
+        uri: "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/${get_group_members_lambda}/invocations"
+        responses:
+          ^\[InternalServiceError\].*:
+            statusCode: "500"
+            responseTemplates:
+              application/json: "      {\n        \"errorType\": $input.json('$.errorType'),\n\
+                \        \"errorMessage\": $input.json('$.errorMessage')\n      }\n\
+                \  "
+          default:
+            statusCode: "200"
+            responseTemplates:
+              application/json: "      {\n        \"group\": $input.json('$.group'),\n\
+                \        \"users\": $input.json('$.users'),\n        \"total\": $input.path('$.total')\n\
+                \      }\n  "
+          ^\[NotFound\].*:
+            statusCode: "404"
+            responseTemplates:
+              application/json: "      {\n        \"errorType\": $input.json('$.errorType'),\n\
+                \        \"errorMessage\": $input.json('$.errorMessage')\n      }\n\
+                \  "
+        requestTemplates:
+          application/json: "{\n\"id\": \"$input.params('id')\",\n\"page\": \"$input.params('page')\"\
+            ,\n\"per_page\": \"$input.params('per_page')\",\n\"client_id\": \"$input.params('application')\"\
+            ,\n\"api_request_id\": \"$input.params('API-Request-Id')\",\n\"api_client_id\"\
+            : \"$input.params('API-Client-Id')\"\n}\n"
+        passthroughBehavior: "never"
+        httpMethod: "POST"
+        type: "aws"
+    delete:
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "users"
+        in: "query"
+        required: true
+        type: "string"
+      - name: "id"
+        in: "query"
+        required: true
+        type: "string"
+      - name: "Authorization"
+        in: "header"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "200 response"
+        400:
+          description: "400 response"
+          schema:
+            $ref: "#/definitions/GenericErrorResponse"
+        500:
+          description: "500 response"
+          schema:
+            $ref: "#/definitions/GenericErrorResponse"
+        404:
+          description: "404 response"
+          schema:
+            $ref: "#/definitions/GenericErrorResponse"
+      security:
+      - Auth0Authorizer: []
+      x-amazon-apigateway-integration:
+        uri: "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/${delete_user_from_groups_lambda}/invocations"
+        responses:
+          ^\[InternalServiceError\].*:
+            statusCode: "500"
+            responseTemplates:
+              application/json: "      {\n        \"errorType\": $input.json('$.errorType'),\n\
+                \        \"errorMessage\": $input.json('$.errorMessage')\n      }\n\
+                \  "
+          default:
+            statusCode: "200"
+          ^\[NotFound\].*:
+            statusCode: "404"
+            responseTemplates:
+              application/json: "      {\n        \"errorType\": $input.json('$.errorType'),\n\
+                \        \"errorMessage\": $input.json('$.errorMessage')\n      }\n\
+                \  "
+          ^\[BadRequest\].*:
+            statusCode: "400"
+            responseTemplates:
+              application/json: "      {\n        \"errorType\": $input.json('$.errorType'),\n\
+                \        \"errorMessage\": $input.json('$.errorMessage')\n      }\n\
+                \  "
+        requestTemplates:
+          application/json: "{\n\"id\": \"$input.params('id')\",\n\"users\": \"$input.params('users')\"\
+            ,\n\"client_id\": \"$input.params('application')\",\n\"api_request_id\"\
+            : \"$input.params('API-Request-Id')\",\n\"api_client_id\": \"$input.params('API-Client-Id')\"\
+            \n}\n"
+        passthroughBehavior: "never"
+        httpMethod: "POST"
+        type: "aws"
+    patch:
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Authorization"
+        in: "header"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "UpdateGroupMembershipRequest"
+        required: true
+        schema:
+          $ref: "#/definitions/UpdateGroupMembershipRequest"
+      responses:
+        200:
+          description: "200 response"
+        400:
+          description: "400 response"
+          schema:
+            $ref: "#/definitions/GenericErrorResponse"
+        500:
+          description: "500 response"
+          schema:
+            $ref: "#/definitions/GenericErrorResponse"
+        404:
+          description: "404 response"
+          schema:
+            $ref: "#/definitions/GenericErrorResponse"
+      security:
+      - Auth0Authorizer: []
+      x-amazon-apigateway-integration:
+        uri: "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/${add_group_members_lambda}/invocations"
+        responses:
+          ^\[InternalServiceError\].*:
+            statusCode: "500"
+            responseTemplates:
+              application/json: "      {\n        \"errorType\": $input.json('$.errorType'),\n\
+                \        \"errorMessage\": $input.json('$.errorMessage')\n      }\n\
+                \  "
+          default:
+            statusCode: "200"
+          ^\[NotFound\].*:
+            statusCode: "404"
+            responseTemplates:
+              application/json: "      {\n        \"errorType\": $input.json('$.errorType'),\n\
+                \        \"errorMessage\": $input.json('$.errorMessage')\n      }\n\
+                \  "
+          ^\[BadRequest\].*:
+            statusCode: "400"
+            responseTemplates:
+              application/json: "      {\n        \"errorType\": $input.json('$.errorType'),\n\
+                \        \"errorMessage\": $input.json('$.errorMessage')\n      }\n\
+                \  "
+        requestTemplates:
+          application/json: "{\n\"id\": $input.json('$.id'),\n\"users\": $input.json('$.users'),\n\
+            \"client_id\": \"$input.params('application')\",\n\"api_request_id\":\
+            \ \"$input.params('API-Request-Id')\",\n\"api_client_id\": \"$input.params('API-Client-Id')\"\
+            \n}\n"
+        passthroughBehavior: "never"
+        httpMethod: "POST"
+        type: "aws"
+  /groups/{application}/id/permissions:
+    get:
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "query"
+        required: true
+        type: "string"
+      - name: "page"
+        in: "query"
+        required: true
+        schema:
+          type: "integer"
+          minimum: 0
+      - name: "per_page"
+        in: "query"
+        required: true
+        schema:
+          type: "integer"
+          minimum: 1
+          maximum: 100
+      - name: "audience"
+        in: "query"
+        required: true
+        type: "string"
+      - name: "Authorization"
+        in: "header"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "200 response"
+          schema:
+            $ref: "#/definitions/GroupPermissionResponse"
+        500:
+          description: "500 response"
+          schema:
+            $ref: "#/definitions/GenericErrorResponse"
+        404:
+          description: "404 response"
+          schema:
+            $ref: "#/definitions/GenericErrorResponse"
+      security:
+      - Auth0Authorizer: []
+      x-amazon-apigateway-integration:
+        uri: "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/${get_group_permissions_lambda}/invocations"
+        responses:
+          ^\[InternalServiceError\].*:
+            statusCode: "500"
+            responseTemplates:
+              application/json: "      {\n        \"errorType\": $input.json('$.errorType'),\n\
+                \        \"errorMessage\": $input.json('$.errorMessage')\n      }\n\
+                \  "
+          default:
+            statusCode: "200"
+            responseTemplates:
+              application/json: "      {\n        \"group\": $input.json('$.group'),\n\
+                \        \"permissions\": $input.json('$.permissions')\n      }\n  "
+          ^\[NotFound\].*:
+            statusCode: "404"
+            responseTemplates:
+              application/json: "      {\n        \"errorType\": $input.json('$.errorType'),\n\
+                \        \"errorMessage\": $input.json('$.errorMessage')\n      }\n\
+                \  "
+        requestTemplates:
+          application/json: "{\n\"id\": \"$input.params('id')\",\n\"client_id\": \"\
+            $input.params('application')\",\n\"api_request_id\": \"$input.params('API-Request-Id')\"\
+            ,\n\"api_client_id\": \"$input.params('API-Client-Id')\"\n}\n"
+        passthroughBehavior: "never"
+        httpMethod: "POST"
+        type: "aws"
+    delete:
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "permissions"
+        in: "query"
+        required: true
+        type: "string"
+      - name: "id"
+        in: "query"
+        required: true
+        type: "string"
+      - name: "Authorization"
+        in: "header"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "200 response"
+        400:
+          description: "400 response"
+          schema:
+            $ref: "#/definitions/GenericErrorResponse"
+        500:
+          description: "500 response"
+          schema:
+            $ref: "#/definitions/GenericErrorResponse"
+        404:
+          description: "404 response"
+          schema:
+            $ref: "#/definitions/GenericErrorResponse"
+      security:
+      - Auth0Authorizer: []
+      x-amazon-apigateway-integration:
+        uri: "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/${delete_group_permissions_lambda}/invocations"
+        responses:
+          ^\[InternalServiceError\].*:
+            statusCode: "500"
+            responseTemplates:
+              application/json: "      {\n        \"errorType\": $input.json('$.errorType'),\n\
+                \        \"errorMessage\": $input.json('$.errorMessage')\n      }\n\
+                \  "
+          default:
+            statusCode: "200"
+          ^\[NotFound\].*:
+            statusCode: "404"
+            responseTemplates:
+              application/json: "      {\n        \"errorType\": $input.json('$.errorType'),\n\
+                \        \"errorMessage\": $input.json('$.errorMessage')\n      }\n\
+                \  "
+          ^\[BadRequest\].*:
+            statusCode: "400"
+            responseTemplates:
+              application/json: "      {\n        \"errorType\": $input.json('$.errorType'),\n\
+                \        \"errorMessage\": $input.json('$.errorMessage')\n      }\n\
+                \  "
+        requestTemplates:permissions
+          application/json: "{\n\"id\": \"$input.params('id')\",\n\"roles\": \"$input.params('roles')\"\
+            ,\n\"client_id\": \"$input.params('application')\",\n\"api_request_id\"\
+            : \"$input.params('API-Request-Id')\",\n\"api_client_id\": \"$input.params('API-Client-Id')\"\
+            \n}\n"
+        passthroughBehavior: "never"
+        httpMethod: "POST"
+        type: "aws"
+    patch:
+      consumes:permissions
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Authorization"
+        in: "header"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "UpdateGroupPermissionRequest"
+        required: true
+        schema:
+          $ref: "#/definitions/UpdateGroupPermissionRequest"
+      responses:
+        200:
+          description: "200 response"
+        400:
+          description: "400 response"
+          schema:
+            $ref: "#/definitions/GenericErrorResponse"
+        500:
+          description: "500 response"
+          schema:
+            $ref: "#/definitions/GenericErrorResponse"
+        404:
+          description: "404 response"
+          schema:
+            $ref: "#/definitions/GenericErrorResponse"
+      security:
+      - Auth0Authorizer: []
+      x-amazon-apigateway-integration:
+        uri: "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/${add_group_permissions_lambda}/invocations"
+        responses:
+          ^\[InternalServiceError\].*:
+            statusCode: "500"
+            responseTemplates:
+              application/json: "      {\n        \"errorType\": $input.json('$.errorType'),\n\
+                \        \"errorMessage\": $input.json('$.errorMessage')\n      }\n\
+                \  "
+          default:
+            statusCode: "200"
+          ^\[NotFound\].*:
+            statusCode: "404"
+            responseTemplates:
+              application/json: "      {\n        \"errorType\": $input.json('$.errorType'),\n\
+                \        \"errorMessage\": $input.json('$.errorMessage')\n      }\n\
+                \  "
+          ^\[BadRequest\].*:
+            statusCode: "400"
+            responseTemplates:
+              application/json: "      {\n        \"errorType\": $input.json('$.errorType'),\n\
+                \        \"errorMessage\": $input.json('$.errorMessage')\n      }\n\
+                \  "
+        requestTemplates:
+          application/json: "{\n\"id\": $input.json('$.id'),\n\"permissions\": $input.json('$.permissions'),\n\
+            \"client_id\": \"$input.params('application')\",\n\"api_request_id\":\
+            \ \"$input.params('API-Request-Id')\",\n\"api_client_id\": \"$input.params('API-Client-Id')\"\
+            \n}\n"
+        passthroughBehavior: "never"
+        httpMethod: "POST"
+        type: "aws"
+  /ops/{application}:
+    get:
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Authorization"
+        in: "header"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "200 response"
+          schema:
+            $ref: "#/definitions/GroupsResponse"
+      security:
+      - Auth0Authorizer: []
+      x-amazon-apigateway-integration:
+        uri: "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/${get_all_ops_groups_lambda}/invocations"
+        responses:
+          default:
+            statusCode: "200"
+            responseTemplates:
+              application/json: "     #set($inputRoot = $input.path('$'))\n      [\n\
+                \          #foreach($elem in $inputRoot)\n          {\n          \
+                \    \"id\" : \"$elem['_id']\",\n              \"name\" : \"$elem.name\"\
+                ,\n              \"description\" : \"$elem.description\"         \
+                \               \n          } \n          #if($foreach.hasNext),#end\n\
+                \          #end\n      ]\n  "
+        requestTemplates:
+          application/json: "{\n   \"client_id\": \"$input.params('application')\"\
+            ,\n   \"api_request_id\": \"$input.params('API-Request-Id')\",\n   \"\
+            api_client_id\": \"$input.params('API-Client-Id')\"\n}\n"
+        passthroughBehavior: "never"
+        httpMethod: "POST"
+        type: "aws"
+    patch:
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Authorization"
+        in: "header"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "200 response"
+        400:
+          description: "400 response"
+          schema:
+            $ref: "#/definitions/GenericErrorResponse"
+        500:
+          description: "500 response"
+          schema:
+            $ref: "#/definitions/GenericErrorResponse"
+        404:
+          description: "404 response"
+          schema:
+            $ref: "#/definitions/GenericErrorResponse"
+      security:
+      - Auth0Authorizer: []
+      x-amazon-apigateway-integration:
+        uri: "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/${update_ops_members_lambda}/invocations"
+        responses:
+          ^\[InternalServiceError\].*:
+            statusCode: "500"
+            responseTemplates:
+              application/json: "      {\n        \"errorType\": $input.json('$.errorType'),\n\
+                \        \"errorMessage\": $input.json('$.errorMessage')\n      }\n\
+                \  "
+          default:
+            statusCode: "200"
+          ^\[NotFound\].*:
+            statusCode: "404"
+            responseTemplates:
+              application/json: "      {\n        \"errorType\": $input.json('$. \
+                \ '),\n        \"errorMessage\": $input.json('$.errorMessage')\n \
+                \     }\n  "
+          ^\[BadRequest\].*:
+            statusCode: "400"
+            responseTemplates:
+              application/json: "      {\n        \"errorType\": $input.json('$. \
+                \ '),\n        \"errorMessage\": $input.json('$.errorMessage')\n \
+                \     }\n  "
+        requestTemplates:
+          application/json: "{\n\"client_id\": \"$input.params('application')\",\n\
+            \"mode\": $input.json('$.mode'),\n\"data\": $input.json('$.data'),\n\"\
+            api_request_id\": \"$input.params('API-Request-Id')\",\n\"api_client_id\"\
+            : \"$input.params('API-Client-Id')\"\n}\n"
+        passthroughBehavior: "never"
+        httpMethod: "POST"
+        type: "aws"
+  /permissions/{application}:
+    get:
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "audience"
+        in: "query"
+        required: true
+        type: "string"
+      - name: "Authorization"
+        in: "header"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "200 response"
+          schema:
+            $ref: "#/definitions/PermissionsResponse"
+      security:
+      - Auth0Authorizer: []
+      x-amazon-apigateway-integration:
+        uri: "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/${get_all_permissions_lambda}/invocations"
+        responses:
+          default:
+            statusCode: "200"
+            responseTemplates:
+              application/json: "     #set($inputRoot = $input.path('$'))\n      [\n\
+                \          #foreach($elem in $inputRoot)\n          {\n          \
+                \    \"id\" : \"$elem.id\",\n              \"name\" : \"$elem.name\"\
+                ,\n              \"description\" : \"$elem.description\"         \
+                \               \n          } \n          #if($foreach.hasNext),#end\n\
+                \          #end\n      ]\n  "
+        requestTemplates:
+          application/json: "{\n   \"client_id\": \"$input.params('application')\"\
+            ,\n   \"api_request_id\": \"$input.params('API-Request-Id')\",\n   \"\
+            api_client_id\": \"$input.params('API-Client-Id')\",\n
+            \"audience\": \"$input.params('audience')\" }"
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+        type: "aws"
+    post:
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Authorization"
+        in: "header"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "PermissionCreateRequest"
+        required: true
+        schema:
+          $ref: "#/definitions/PermissionCreateRequest"
+      responses:
+        200:
+          description: "200 response"
+          schema:
+            $ref: "#/definitions/PermissionResponse"
+        400:
+          description: "400 response"
+          schema:
+            $ref: "#/definitions/GenericErrorResponse"
+        500:
+          description: "500 response"
+          schema:
+            $ref: "#/definitions/GenericErrorResponse"
+      security:
+      - Auth0Authorizer: []
+      x-amazon-apigateway-integration:
+        uri: "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/${save_permission_lambda}/invocations"
+        responses:
+          ^\[InternalServiceError\].*:
+            statusCode: "500"
+            responseTemplates:
+              application/json: "      {\n        \"errorType\": $input.json('$.errorType'),\n\
+                \        \"errorMessage\": $input.json('$.errorMessage')\n      }\n\
+                \  "
+          default:
+            statusCode: "200"
+            responseTemplates:
+              application/json: "      {\n        \"id\": $input.json('$.id'),\n\
+                \        \"name\": $input.json('$.name'),\n        \"description\"\
+                : $input.json('$.description')\n      }\n  "
+          ^\[BadRequest\].*:
+            statusCode: "400"
+            responseTemplates:
+              application/json: "      {\n        \"errorType\": $input.json('$.errorType'),\n\
+                \        \"errorMessage\": $input.json('$.errorMessage')\n      }\n\
+                \  "
+        requestTemplates:
+          application/json: "{\n   \"name\": $input.json('$.name'),\n   \"description\"\
+            : $input.json('$.description'),\n   \"client_id\": \"$input.params('application')\"\
+            ,\n   \"api_request_id\": \"$input.params('API-Request-Id')\",\n   \"\
+            api_client_id\": \"$input.params('API-Client-Id')\", \n
+            \"audience\": \"$input.json('$.audience')\"\n
+            }"
+        passthroughBehavior: "never"
+        httpMethod: "POST"
+        type: "aws"
+  /permissions/{application}/{id}:
+    delete:
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Authorization"
+        in: "header"
+        required: true
+        type: "string"
+      - name: "id"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "audience"
+        in: "query"
+        required: true 
+        type: "string"
+      responses:
+        200:
+          description: "200 response"
+        400:
+          description: "400 response"
+          schema:
+            $ref: "#/definitions/GenericErrorResponse"
+        500:
+          description: "500 response"
+          schema:
+            $ref: "#/definitions/GenericErrorResponse"
+        404:
+          description: "404 response"
+          schema:
+            $ref: "#/definitions/GenericErrorResponse"
+      security:
+      - Auth0Authorizer: []
+      x-amazon-apigateway-integration:
+        uri: "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/${delete_permission_lambda}/invocations"
+        responses:
+          ^\[InternalServiceError\].*:
+            statusCode: "500"
+            responseTemplates:
+              application/json: "      {\n        \"errorType\": $input.json('$.errorType'),\n\
+                \        \"errorMessage\": $input.json('$.errorMessage')\n      }\n\
+                \  "
+          default:
+            statusCode: "200"
+          ^\[NotFound\].*:
+            statusCode: "404"
+            responseTemplates:
+              application/json: "      {\n        \"errorType\": $input.json('$.errorType'),\n\
+                \        \"errorMessage\": $input.json('$.errorMessage')\n      }\n\
+                \  "
+          ^\[BadRequest\].*:
+            statusCode: "400"
+            responseTemplates:
+              application/json: "      {\n        \"errorType\": $input.json('$.errorType'),\n\
+                \        \"errorMessage\": $input.json('$.errorMessage')\n      }\n\
+                \  "
+        requestTemplates:
+          application/json: "{\n\"id\": \"$input.params('id')\",\n\"client_id\": \"\
+            $input.params('application')\",\n\"api_request_id\": \"$input.params('API-Request-Id')\"\
+            ,\n\"api_client_id\": \"$input.params('API-Client-Id')\"\n}\n"
+        passthroughBehavior: "never"
+        httpMethod: "POST"
+        type: "aws"
+  /users/{application}:
+    get:
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "page"
+        in: "query"
+        required: true
+        type: "integer"
+        minimum: 0
+      - name: "connection"
+        in: "query"
+        required: true
+        type: "string"
+      - name: "per_page"
+        in: "query"
+        required: true
+        type: "integer"
+        minimum: 1
+        maximum: 100
+      - name: "Authorization"
+        in: "header"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "200 response"
+          schema:
+            $ref: "#/definitions/UserPagedResponse"
+        400:
+          description: "400 response"
+          schema:
+            $ref: "#/definitions/GenericErrorResponse"
+      security:
+      - Auth0Authorizer: []
+      x-amazon-apigateway-integration:
+        uri: "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/${get_all_users_lambda}/invocations"
+        responses:
+          default:
+            statusCode: "200"
+            responseTemplates:
+              application/json: "     #set($inputRoot = $input.path('$'))\n      {\n\
+                \          \"users\": [\n          #foreach($elem in $inputRoot.users)\n\
+                \          {\n              \"id\" : \"$elem['user_id']\",\n     \
+                \         \"name\" : \"$elem.name\",\n              \"email\" : \"\
+                $elem.email\",\n              \"username\" : \"$elem.username\"  \
+                \                      \n          } \n          #if($foreach.hasNext),#end\n\
+                \          #end\n          ],\n          \"total\": $inputRoot.total\n\
+                \      }\n  "
+          ^\[BadRequest\].*:
+            statusCode: "400"
+            responseTemplates:
+              application/json: "     {\n      \"errorType\": $input.json('$.errorType'),\n\
+                \      \"errorMessage\": $input.json('$.errorMessage')\n      }  \
+                \ \n  "
+        requestTemplates:
+          application/json: "{\n   \"client_id\": \"$input.params('application')\"\
+            ,\n   \"connection\": \"$input.params('connection')\",\n   \"page\": $input.params('page'),\n\
+            \   \"per_page\": $input.params('per_page'),\n   \"api_request_id\": \"\
+            $input.params('API-Request-Id')\",\n   \"api_client_id\": \"$input.params('API-Client-Id')\"\
+            \n}\n"
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+        type: "aws"
+    post:
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Authorization"
+        in: "header"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "UserCreateRequest"
+        required: true
+        schema:
+          $ref: "#/definitions/UserCreateRequest"
+      responses:
+        200:
+          description: "200 response"
+          schema:
+            $ref: "#/definitions/UserResponse"
+        400:
+          description: "400 response"
+          schema:
+            $ref: "#/definitions/GenericErrorResponse"
+        500:
+          description: "500 response"
+          schema:
+            $ref: "#/definitions/GenericErrorResponse"
+      security:
+      - Auth0Authorizer: []
+      x-amazon-apigateway-integration:
+        uri: "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/${save_user_lambda}/invocations"
+        responses:
+          ^\[InternalServiceError\].*:
+            statusCode: "500"
+            responseTemplates:
+              application/json: "      {\n        \"errorType\": $input.json('$.errorType'),\n\
+                \        \"errorMessage\": $input.json('$.errorMessage')\n      }\n\
+                \  "
+          default:
+            statusCode: "200"
+            responseTemplates:
+              application/json: "      {\n          \"id\": $input.json('$.user_id'),\n\
+                \          \"name\": $input.json('$.name'),\n          \"email\":\
+                \ $input.json('$.email'),\n          \"username\": $input.json('$.username')\n\
+                \      }\n  "
+          ^\[BadRequest\].*:
+            statusCode: "400"
+            responseTemplates:
+              application/json: "      {\n        \"errorType\": $input.json('$.errorType'),\n\
+                \        \"errorMessage\": $input.json('$.errorMessage')\n      }\n\
+                \  "
+        requestTemplates:
+          application/json: "{\n    \"client_id\": \"$input.params('application')\"\
+            ,\n    \"connection\": $input.json('$.connection'),\n    \"name\": $input.json('$.name'),\n\
+            \    \"email\": $input.json('$.email'),\n    \"password\": $input.json('$.password'),\n\
+            \    \"username\": $input.json('$.username'),\n    \"api_request_id\"\
+            : \"$input.params('API-Request-Id')\",\n    \"api_client_id\": \"$input.params('API-Client-Id')\"\
+            \n}\n"
+        passthroughBehavior: "never"
+        httpMethod: "POST"
+        type: "aws"
+  /users/{application}/email:
+    get:
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "connection"
+        in: "query"
+        required: true
+        type: "string"
+      - name: "email"
+        in: "query"
+        required: true
+        type: "string"
+      - name: "Authorization"
+        in: "header"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "200 response"
+          schema:
+            $ref: "#/definitions/UsersResponse"
+        400:
+          description: "400 response"
+          schema:
+            $ref: "#/definitions/GenericErrorResponse"
+      security:
+      - Auth0Authorizer: []
+      x-amazon-apigateway-integration:
+        uri: "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/${get_user_by_email_lambda}/invocations"
+        responses:
+          default:
+            statusCode: "200"
+            responseTemplates:
+              application/json: "    #set($inputRoot = $input.path('$'))\n    [\n\
+                \      #foreach($elem in $inputRoot)\n      {\n        \"id\" : \"\
+                $elem['user_id']\",\n        \"name\" : \"$elem.name\",\n        \"\
+                email\" : \"$elem.email\",\n        \"username\" : \"$elem.username\"\
+                \                        \n      } \n    #if($foreach.hasNext),#end\n\
+                \    #end\n    ]\n  "
+          ^\[BadRequest\].*:
+            statusCode: "400"
+            responseTemplates:
+              application/json: "      {\n        \"errorType\": $input.json('$.errorType'),\n\
+                \        \"errorMessage\": $input.json('$.errorMessage')\n      }\n\
+                \  "
+        requestTemplates:
+          application/json: "      {\n        \"email\": \"$input.params('email')\"\
+            ,\n        \"connection\": \"$input.params('connection')\",\n        \"\
+            client_id\": \"$input.params('application')\",\n        \"api_request_id\"\
+            : \"$input.params('API-Request-Id')\",\n        \"api_client_id\": \"\
+            $input.params('API-Client-Id')\"\n      }\n    "
+        passthroughBehavior: "never"
+        httpMethod: "POST"
+        type: "aws"
+  /users/{application}/password:
+    patch:
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Authorization"
+        in: "header"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "ChangeUserPasswordRequest"
+        required: true
+        schema:
+          $ref: "#/definitions/ChangeUserPasswordRequest"
+      responses:
+        200:
+          description: "200 response"
+        400:
+          description: "400 response"
+          schema:
+            $ref: "#/definitions/GenericErrorResponse"
+        404:
+          description: "404 response"
+          schema:
+            $ref: "#/definitions/GenericErrorResponse"
+      security:
+      - Auth0Authorizer: []
+      x-amazon-apigateway-integration:
+        uri: "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/${change_user_password_lambda}/invocations"
+        responses:
+          default:
+            statusCode: "200"
+            responseTemplates:
+              application/json: "    {\n    }\n  "
+          ^\[NotFound\].*:
+            statusCode: "404"
+            responseTemplates:
+              application/json: "      {\n        \"errorType\": $input.json('$.errorType'),\n\
+                \        \"errorMessage\": $input.json('$.errorMessage')\n      }\n\
+                \  "
+          ^\[BadRequest\].*:
+            statusCode: "400"
+            responseTemplates:
+              application/json: "      {\n        \"errorType\": $input.json('$.errorType'),\n\
+                \        \"errorMessage\": $input.json('$.errorMessage')\n      }\n\
+                \  "
+        requestTemplates:
+          application/json: "            {\n              \"id\": $input.json('$.id'),\n\
+            \              \"password\": $input.json('$.password'),\n            \
+            \  \"connection\": $input.json('connection'),\n              \"client_id\"\
+            : \"$input.params('application')\",\n              \"api_request_id\"\
+            : \"$input.params('API-Request-Id')\",\n              \"api_client_id\"\
+            : \"$input.params('API-Client-Id')\"\n            }\n"
+        passthroughBehavior: "never"
+        httpMethod: "POST"
+        type: "aws"
+  /users/{application}/token/{id}:
+    get:
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Authorization"
+        in: "header"
+        required: true
+        type: "string"
+      - name: "id"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "200 response"
+          schema:
+            $ref: "#/definitions/UserTokenResponse"
+        500:
+          description: "500 response"
+          schema:
+            $ref: "#/definitions/GenericErrorResponse"
+      security:
+      - Auth0Authorizer: []
+      x-amazon-apigateway-integration:
+        uri: "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/${get_refresh_tokens_lambda}/invocations"
+        responses:
+          ^\[InternalServiceError\].*:
+            statusCode: "500"
+            responseTemplates:
+              application/json: "      {\n        \"errorType\": $input.json('$.errorType'),\n\
+                \        \"errorMessage\": $input.json('$.errorMessage')\n      }\n\
+                \  "
+          default:
+            statusCode: "200"
+        requestTemplates:
+          application/json: "{\n\"id\": \"$input.params('id')\",\n\"client_id\": \"\
+            $input.params('application')\",\n\"api_request_id\": \"$input.params('API-Request-Id')\"\
+            ,\n\"api_client_id\": \"$input.params('API-Client-Id')\"\n}\n"
+        passthroughBehavior: "never"
+        httpMethod: "POST"
+        type: "aws"
+    delete:
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Authorization"
+        in: "header"
+        required: true
+        type: "string"
+      - name: "id"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "200 response"
+      security:
+      - Auth0Authorizer: []
+      x-amazon-apigateway-integration:
+        uri: "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/${revoke_refresh_tokens_lambda}/invocations"
+        responses:
+          ^\[InternalServiceError\].*:
+            statusCode: "500"
+            responseTemplates:
+              application/json: "      {\n        \"errorType\": $input.json('$.errorType'),\n\
+                \        \"errorMessage\": $input.json('$.errorMessage')\n      }\n\
+                \  "
+          default:
+            statusCode: "200"
+        requestTemplates:
+          application/json: "{\n\"id\": \"$input.params('id')\",\n\"client_id\": \"\
+            $input.params('application')\",\n\"api_request_id\": \"$input.params('API-Request-Id')\"\
+            ,\n\"api_client_id\": \"$input.params('API-Client-Id')\"\n}\n"
+        passthroughBehavior: "never"
+        httpMethod: "POST"
+        type: "aws"
+  /users/{application}/unblock:
+    delete:
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "connection"
+        in: "query"
+        required: true
+        type: "string"
+      - name: "id"
+        in: "query"
+        required: true
+        type: "string"
+      - name: "Authorization"
+        in: "header"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "200 response"
+        404:
+          description: "404 response"
+          schema:
+            $ref: "#/definitions/GenericErrorResponse"
+      security:
+      - Auth0Authorizer: []
+      x-amazon-apigateway-integration:
+        uri: "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/${unblock_user_lambda}/invocations"
+        responses:
+          default:
+            statusCode: "200"
+          ^\[NotFound\].*:
+            statusCode: "404"
+            responseTemplates:
+              application/json: "      {\n        \"errorType\": $input.json('$.errorType'),\n\
+                \        \"errorMessage\": $input.json('$.errorMessage')\n      }\n\
+                \  "
+        requestTemplates:
+          application/json: "    {\n      \"id\": \"$input.params('id')\",\n     \
+            \ \"client_id\": \"$input.params('application')\",\n      \"connection\"\
+            : \"$input.params('connection')\",\n      \"api_request_id\": \"$input.params('API-Request-Id')\"\
+            ,\n      \"api_client_id\": \"$input.params('API-Client-Id')\"\n    }\n\
+            \  "
+        passthroughBehavior: "never"
+        httpMethod: "POST"
+        type: "aws"
+  /users/{application}/username:
+    get:
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "connection"
+        in: "query"
+        required: true
+        type: "string"
+      - name: "email"
+        in: "query"
+        required: true
+        type: "string"
+      - name: "Authorization"
+        in: "header"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "200 response"
+          schema:
+            $ref: "#/definitions/UsersResponse"
+        400:
+          description: "400 response"
+          schema:
+            $ref: "#/definitions/GenericErrorResponse"
+      security:
+      - Auth0Authorizer: []
+      x-amazon-apigateway-integration:
+        uri: "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/${get_user_by_username_lambda}/invocations"
+        responses:
+          default:
+            statusCode: "200"
+            responseTemplates:
+              application/json: "    #set($inputRoot = $input.path('$'))\n    [\n\
+                \      #foreach($elem in $inputRoot)\n      {\n        \"id\" : \"\
+                $elem['user_id']\",\n        \"name\" : \"$elem.name\",\n        \"\
+                email\" : \"$elem.email\",\n        \"username\" : \"$elem.username\"\
+                \                        \n      } \n    #if($foreach.hasNext),#end\n\
+                \    #end\n    ]\n  "
+          ^\[BadRequest\].*:
+            statusCode: "400"
+            responseTemplates:
+              application/json: "      {\n        \"errorType\": $input.json('$.errorType'),\n\
+                \        \"errorMessage\": $input.json('$.errorMessage')\n      }\n\
+                \  "
+        requestTemplates:
+          application/json: "      {\n        \"username\": \"$input.params('username')\"\
+            ,\n        \"connection\": \"$input.params('connection')\",\n        \"\
+            client_id\": \"$input.params('application')\",\n        \"api_request_id\"\
+            : \"$input.params('API-Request-Id')\",\n        \"api_client_id\": \"\
+            $input.params('API-Client-Id')\"\n      }\n    "
+        passthroughBehavior: "never"
+        timeoutInMillis: 29000
+        httpMethod: "POST"
+        type: "aws"
+    patch:
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Authorization"
+        in: "header"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "ChangeUserUsernameRequest"
+        required: true
+        schema:
+          $ref: "#/definitions/ChangeUserUsernameRequest"
+      responses:
+        200:
+          description: "200 response"
+          schema:
+            $ref: "#/definitions/UserResponse"
+        400:
+          description: "400 response"
+          schema:
+            $ref: "#/definitions/GenericErrorResponse"
+        500:
+          description: "500 response"
+          schema:
+            $ref: "#/definitions/GenericErrorResponse"
+        404:
+          description: "404 response"
+          schema:
+            $ref: "#/definitions/GenericErrorResponse"
+      security:
+      - Auth0Authorizer: []
+      x-amazon-apigateway-integration:
+        uri: "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/${update_username_lambda}/invocations"
+        responses:
+          ^\[InternalServiceError\].*:
+            statusCode: "500"
+            responseTemplates:
+              application/json: "      {\n        \"errorType\": $input.json('$.errorType'),\n\
+                \        \"errorMessage\": $input.json('$.errorMessage')\n      }\n\
+                \  "
+          default:
+            statusCode: "200"
+            responseTemplates:
+              application/json: "      {\n        \"id\": $input.json('$.id'),\n \
+                \       \"name\": $input.json('$.name'),\n        \"email\": $input.json('$.email'),\n\
+                \        \"username\": $input.json('$.username')\n      }\n  "
+          ^\[NotFound\].*:
+            statusCode: "404"
+            responseTemplates:
+              application/json: "      {\n        \"errorType\": $input.json('$.errorType'),\n\
+                \        \"errorMessage\": $input.json('$.errorMessage')\n      }\n\
+                \  "
+          ^\[BadRequest\].*:
+            statusCode: "400"
+            responseTemplates:
+              application/json: "      {\n        \"errorType\": $input.json('$.errorType'),\n\
+                \        \"errorMessage\": $input.json('$.errorMessage')\n      }\n\
+                \  "
+        requestTemplates:
+          application/json: "    {\n        \"id\": $input.json('$.id'),\n       \
+            \ \"username\": $input.json('$.username'),\n        \"connection\": $input.json('$.connection'),\n\
+            \        \"client_id\": \"$input.params('application')\",\n        \"\
+            api_request_id\": \"$input.params('API-Request-Id')\",\n        \"api_client_id\"\
+            : \"$input.params('API-Client-Id')\"\n    }\n  "
+        passthroughBehavior: "never"
+        timeoutInMillis: 29000
+        httpMethod: "POST"
+        type: "aws"
+  /users/{application}/{id}:
+    get:
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Authorization"
+        in: "header"
+        required: true
+        type: "string"
+      - name: "id"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "200 response"
+          schema:
+            $ref: "#/definitions/UserResponse"
+        500:
+          description: "500 response"
+          schema:
+            $ref: "#/definitions/GenericErrorResponse"
+        404:
+          description: "404 response"
+          schema:
+            $ref: "#/definitions/GenericErrorResponse"
+      security:
+      - Auth0Authorizer: []
+      x-amazon-apigateway-integration:
+        uri: "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/${get_user_by_id_lambda}/invocations"
+        responses:
+          ^\[InternalServiceError\].*:
+            statusCode: "500"
+            responseTemplates:
+              application/json: "      {\n        \"errorType\": $input.json('$.errorType'),\n\
+                \        \"errorMessage\": $input.json('$.errorMessage')\n      }\n\
+                \  "
+          default:
+            statusCode: "200"
+            responseTemplates:
+              application/json: "      {\n        \"id\": $input.json('$.user_id'),\n\
+                \        \"name\": $input.json('$.name'),\n        \"email\": $input.json('$.email'),\n\
+                \        \"username\": $input.json('$.username')\n      }\n  "
+          ^\[NotFound\].*:
+            statusCode: "404"
+            responseTemplates:
+              application/json: "      {\n        \"errorType\": $input.json('$.errorType'),\n\
+                \        \"errorMessage\": $input.json('$.errorMessage')\n      }\n\
+                \  "
+        requestTemplates:
+          application/json: "{\n\"id\": \"$input.params('id')\",\n\"client_id\": \"\
+            $input.params('application')\",\n\"api_request_id\": \"$input.params('API-Request-Id')\"\
+            ,\n\"api_client_id\": \"$input.params('API-Client-Id')\"\n}\n"
+        passthroughBehavior: "never"
+        httpMethod: "POST"
+        type: "aws"
+    delete:
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "connection"
+        in: "query"
+        required: true
+        type: "string"
+      - name: "Authorization"
+        in: "header"
+        required: true
+        type: "string"
+      - name: "id"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "200 response"
+        400:
+          description: "400 response"
+          schema:
+            $ref: "#/definitions/GenericErrorResponse"
+        500:
+          description: "500 response"
+          schema:
+            $ref: "#/definitions/GenericErrorResponse"
+        404:
+          description: "404 response"
+          schema:
+            $ref: "#/definitions/GenericErrorResponse"
+      security:
+      - Auth0Authorizer: []
+      x-amazon-apigateway-integration:
+        uri: "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/${delete_user_lambda}/invocations"
+        responses:
+          ^\[InternalServiceError\].*:
+            statusCode: "500"
+            responseTemplates:
+              application/json: "      {\n        \"errorType\": $input.json('$.errorType'),\n\
+                \        \"errorMessage\": $input.json('$.errorMessage')\n      }\n\
+                \  "
+          default:
+            statusCode: "200"
+          ^\[NotFound\].*:
+            statusCode: "404"
+            responseTemplates:
+              application/json: "      {\n        \"errorType\": $input.json('$.errorType'),\n\
+                \        \"errorMessage\": $input.json('$.errorMessage')\n      }\n\
+                \  "
+          ^\[BadRequest\].*:
+            statusCode: "400"
+            responseTemplates:
+              application/json: "      {\n        \"errorType\": $input.json('$.errorType'),\n\
+                \        \"errorMessage\": $input.json('$.errorMessage')\n      }\n\
+                \  "
+        requestTemplates:
+          application/json: "    {\n      \"id\": \"$input.params('id')\",\n     \
+            \ \"connection\": \"$input.params('connection')\",\n      \"client_id\"\
+            : \"$input.params('application')\",\n      \"api_request_id\": \"$input.params('API-Request-Id')\"\
+            ,\n      \"api_client_id\": \"$input.params('API-Client-Id')\"\n    }\n\
+            \  "
+        passthroughBehavior: "never"
+        httpMethod: "POST"
+        type: "aws"
+    patch:
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Authorization"
+        in: "header"
+        required: true
+        type: "string"
+      - name: "id"
+        in: "path"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "ChangeUserPasswordRequest"
+        required: true
+        schema:
+          $ref: "#/definitions/ChangeUserPasswordRequest"
+      responses:
+        200:
+          description: "200 response"
+          schema:
+            $ref: "#/definitions/UserResponse"
+        400:
+          description: "400 response"
+          schema:
+            $ref: "#/definitions/GenericErrorResponse"
+        500:
+          description: "500 response"
+          schema:
+            $ref: "#/definitions/GenericErrorResponse"
+        404:
+          description: "404 response"
+          schema:
+            $ref: "#/definitions/GenericErrorResponse"
+      security:
+      - Auth0Authorizer: []
+      x-amazon-apigateway-integration:
+        uri: "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/${update_user_lambda}/invocations"
+        responses:
+          ^\[InternalServiceError\].*:
+            statusCode: "500"
+            responseTemplates:
+              application/json: "      {\n        \"errorType\": $input.json('$.errorType'),\n\
+                \        \"errorMessage\": $input.json('$.errorMessage')\n      }\n\
+                \  "
+          default:
+            statusCode: "200"
+            responseTemplates:
+              application/json: "      {\n        \"id\": $input.json('$.user_id'),\n\
+                \        \"name\": $input.json('$.name'),\n        \"email\": $input.json('$.email'),\n\
+                \        \"username\": $input.json('$.username')\n      }\n  "
+          ^\[NotFound\].*:
+            statusCode: "404"
+            responseTemplates:
+              application/json: "      {\n        \"errorType\": $input.json('$.errorType'),\n\
+                \        \"errorMessage\": $input.json('$.errorMessage')\n      }\n\
+                \  "
+          ^\[BadRequest\].*:
+            statusCode: "400"
+            responseTemplates:
+              application/json: "      {\n        \"errorType\": $input.json('$.errorType'),\n\
+                \        \"errorMessage\": $input.json('$.errorMessage')\n      }\n\
+                \  "
+        requestTemplates:
+          application/json: "    {\n        \"id\": \"$input.params('id')\",\n   \
+            \     \"email\": $input.json('$.email'),\n        \"connection\": $input.json('$.connection'),\n\
+            \        \"client_id\": \"$input.params('application')\",\n        \"\
+            api_request_id\": \"$input.params('API-Request-Id')\",\n        \"api_client_id\"\
+            : \"$input.params('API-Client-Id')\"\n    }\n  "
+        passthroughBehavior: "never"
+        httpMethod: "POST"
+        type: "aws"
+  /users/{application}/{id}/groups:
+    get:
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Authorization"
+        in: "header"
+        required: true
+        type: "string"
+      - name: "page"
+        in: "query"
+        type: "integer"
+        minimum: 0
+      - name: "per_page"
+        in: "query"
+        type: "integer"
+        minimum: 1
+        maximum: 100
+      responses:
+        200:
+          description: "200 response"
+          schema:
+            $ref: "#/definitions/GroupsResponse"
+        500:
+          description: "500 response"
+          schema:
+            $ref: "#/definitions/GenericErrorResponse"
+      security:
+      - Auth0Authorizer: []
+      x-amazon-apigateway-integration:
+        uri: "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/${get_user_groups_lambda}/invocations"
+        responses:
+          ^\[InternalServiceError\].*:
+            statusCode: "500"
+            responseTemplates:
+              application/json: "      {\n        \"errorType\": $input.json('$.errorType'),\n\
+                \        \"errorMessage\": $input.json('$.errorMessage')\n      }\n\
+                \  "
+          default:
+            statusCode: "200"
+            responseTemplates:
+              application/json: "     #set($inputRoot = $input.path('$'))\n      [\n\
+                \          #foreach($elem in $inputRoot)\n          {\n          \
+                \    \"id\" : \"$elem.id\",\n              \"name\" : \"$elem.name\"\
+                ,\n              \"description\" : \"$elem.description\"         \
+                \               \n          } \n          #if($foreach.hasNext),#end\n\
+                \          #end\n      ]\n  "
+        requestTemplates:
+          application/json: "    {\n      \"id\": \"$input.params('id')\",\n     \
+            \ \"client_id\": \"$input.params('application')\",\n      \"api_request_id\"\
+            : \"$input.params('API-Request-Id')\",\n      \"api_client_id\": \"$input.params('API-Client-Id')\",\
+            \"page": \"$input.params('page')\",\ 
+            \"per_page": \"$input.params('per_page')\",\ 
+            \n    }\n  "
+        passthroughBehavior: "never"
+        httpMethod: "POST"
+        type: "aws"
+    post:
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Authorization"
+        in: "header"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "AddUserToGroupsRequest"
+        required: true
+        schema:
+          $ref: "#/definitions/AddUserToGroupsRequest"
+      responses:
+        200:
+          description: "200 response"
+        400:
+          description: "400 response"
+          schema:
+            $ref: "#/definitions/GenericErrorResponse"
+        500:
+          description: "500 response"
+          schema:
+            $ref: "#/definitions/GenericErrorResponse"
+      security:
+      - Auth0Authorizer: []
+      x-amazon-apigateway-integration:
+        uri: "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/${add_user_to_groups_lambda}/invocations"
+        responses:
+          ^\[InternalServiceError\].*:
+            statusCode: "500"
+            responseTemplates:
+              application/json: "      {\n        \"errorType\": $input.json('$.errorType'),\n\
+                \        \"errorMessage\": $input.json('$.errorMessage')\n      }\n\
+                \  "
+          default:
+            statusCode: "200"
+          ^\[BadRequest\].*:
+            statusCode: "400"
+            responseTemplates:
+              application/json: "      {\n        \"errorType\": $input.json('$.errorType'),\n\
+                \        \"errorMessage\": $input.json('$.errorMessage')\n      }\n\
+                \  "
+        requestTemplates:
+          application/json: "    {\n      \"id\": \"$input.params('id')\",\n     \
+            \ \"groups\": $input.json('$.groups'),\n      \"client_id\": \"$input.params('application')\"\
+            ,\n      \"api_request_id\": \"$input.params('API-Request-Id')\",\n  \
+            \    \"api_client_id\": \"$input.params('API-Client-Id')\"\n    }\n  "
+        passthroughBehavior: "never"
+        httpMethod: "POST"
+        type: "aws"
+    delete:
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        type: "string"
+      - name: "groups"
+        in: "query"
+        required: true
+        type: "string"
+      - name: "Authorization"
+        in: "header"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "200 response"
+        400:
+          description: "400 response"
+          schema:
+            $ref: "#/definitions/GenericErrorResponse"
+        500:
+          description: "500 response"
+          schema:
+            $ref: "#/definitions/GenericErrorResponse"
+        404:
+          description: "404 response"
+          schema:
+            $ref: "#/definitions/GenericErrorResponse"
+      security:
+      - Auth0Authorizer: []
+      x-amazon-apigateway-integration:
+        uri: "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/${delete_user_from_groups_lambda}/invocations"
+        responses:
+          ^\[InternalServiceError\].*:
+            statusCode: "500"
+            responseTemplates:
+              application/json: "      {\n        \"errorType\": $input.json('$.errorType'),\n\
+                \        \"errorMessage\": $input.json('$.errorMessage')\n      }\n\
+                \  "
+          default:
+            statusCode: "200"
+          ^\[NotFound\].*:
+            statusCode: "404"
+            responseTemplates:
+              application/json: "      {\n        \"errorType\": $input.json('$.errorType'),\n\
+                \        \"errorMessage\": $input.json('$.errorMessage')\n      }\n\
+                \  "
+          ^\[BadRequest\].*:
+            statusCode: "400"
+            responseTemplates:
+              application/json: "      {\n        \"errorType\": $input.json('$.errorType'),\n\
+                \        \"errorMessage\": $input.json('$.errorMessage')\n      }\n\
+                \  "
+        requestTemplates:
+          application/json: "    {\n      \"id\": \"$input.params('id')\",\n     \
+            \ \"groups\": \"$input.params('groups')\",\n      \"client_id\"\
+            : \"$input.params('application')\",\n      \"api_request_id\": \"$input.params('API-Request-Id')\"\
+            ,\n      \"api_client_id\": \"$input.params('API-Client-Id')\"\n    }\n\
+            \  "
+        passthroughBehavior: "never"
+        httpMethod: "POST"
+        type: "aws"
+securityDefinitions:
+  Auth0Authorizer:
+    type: "apiKey"
+    name: "Authorization"
+    in: "header"
+    x-amazon-apigateway-authtype: "custom"
+    x-amazon-apigateway-authorizer:
+      authorizerUri: "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/${authoriser_lambda}/invocations"
+      authorizerResultTtlInSeconds: 300
+      identityValidationExpression: "^Bearer [A-Za-z0-9-_]+\\.[A-Za-z0-9-_]+\\.[A-Za-z0-9-_.+\\\
+        /]+$"
+      type: "token"
+definitions:
+  AddUserToGroupsRequest:
+    type: "object"
+    required:
+    - "groups"
+    properties:
+      groups:
+        type: "array"
+        items:
+          type: "object"
+          properties:
+            id:
+              type: "string"
+            name:
+              type: "string"
+    title: "AddUserToGroupsRequest"
+  GroupMembershipResponse:
+    type: "object"
+    properties:
+      group:
+        type: "object"
+        properties:
+          _id:
+            type: "string"
+          name:
+            type: "string"
+          description:
+            type: "string"
+      users:
+        type: "array"
+        items:
+          type: "object"
+          properties:
+            _id:
+              type: "string"
+            name:
+              type: "string"
+            email:
+              type: "string"
+    title: "GroupMembershipResponse"
+  UserPagedResponse:
+    type: "object"
+    properties:
+      users:
+        type: "array"
+        items:
+          type: "object"
+          properties:
+            id:
+              type: "string"
+            name:
+              type: "string"
+            email:
+              type: "string"
+            username:
+              type: "string"
+      total:
+        type: "integer"
+    title: "UserPagedResponse"
+  UsersResponse:
+    title: "UsersResponse"
+    type: "array"
+    items:
+      type: "object"
+      properties:
+        id:
+          type: "string"
+        name:
+          type: "string"
+        email:
+          type: "string"
+        username:
+          type: "string"
+  PermissionsResponse:
+    title: "PermissionsResponse"
+    type: "array"
+    items:
+      type: "object"
+      properties:
+        id:
+          type: "string"
+        name:
+          type: "string"
+        description:
+          type: "string"
+  GroupCreateRequest:
+    type: "object"
+    required:
+    - "description"
+    - "name"
+    properties:
+      name:
+        type: "string"
+      description:
+        type: "string"
+    title: "GroupCreateRequest"
+  GroupUpdateRequest:
+    type: "object"
+    required:
+    - "description"
+    - "id"
+    - "name"
+    properties:
+      id:
+        type: "string"
+      name:
+        type: "string"
+      description:
+        type: "string"
+      client_id:
+        type: "string"
+    title: "GroupUpdateRequest"
+  PermissionResponse:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+      name:
+        type: "string"
+      description:
+        type: "string"
+    title: "PermissionResponse"
+  GroupsResponse:
+    title: "GroupsResponse"
+    type: "array"
+    items:
+      type: "object"
+      properties:
+        id:
+          type: "string"
+        name:
+          type: "string"
+        description:
+          type: "string"
+  UserResponse:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+      name:
+        type: "string"
+      email:
+        type: "string"
+      username:
+        type: "string"
+    title: "UserResponse"
+  GroupPermissionResponse:
+    type: "object"
+    properties:
+      group:
+        type: "object"
+        properties:
+          id:
+            type: "string"
+          name:
+            type: "string"
+          description:
+            type: "string"
+      permissions:
+        type: "array"
+        items:
+          type: "object"
+          properties:
+            id:
+              type: "string"
+            name:
+              type: "string"
+            description:
+              type: "string"
+    title: "GroupPermissionResponse"
+  ChangeUserPasswordRequest:
+    type: "object"
+    required:
+    - "connection"
+    - "id"
+    - "password"
+    properties:
+      id:
+        type: "string"
+      password:
+        type: "string"
+      connection:
+        type: "string"
+    title: "ChangeUserPasswordRequest"
+  GenericErrorResponse:
+    type: "object"
+    properties:
+      errorType:
+        type: "string"
+      errorMessage:
+        type: "string"
+    title: "PermissionsResponse"
+  ChangeUserUsernameRequest:
+    type: "object"
+    required:
+    - "connection"
+    - "id"
+    - "username"
+    properties:
+      id:
+        type: "string"
+      username:
+        type: "string"
+      connection:
+        type: "string"
+    title: "ChangeUserUsernameRequest"
+  PermissionCreateRequest:
+    type: "object"
+    required:
+    - "client_id"
+    - "description"
+    - "name"
+    - "audience"
+    properties:
+      name:
+        type: "string"
+      description:
+        type: "string"
+      client_id:
+        type: "string"
+      audience:
+        type: "string"
+    title: "PermissionCreateRequest"
+  UpdateGroupPermissionRequest:
+    type: "object"
+    required:
+    - "id"
+    - "permissions"
+    properties:
+      id:
+        type: "string"
+      permissions:
+        type: "array"
+        items:
+          type: "object"
+          required:
+          - "id"
+          - "audience"
+          properties:
+            id:
+              type: "string"
+            audience:
+              type: "string"
+    title: "UpdateGroupPermissionRequest"
+  PermissionUpdateRequest:
+    type: "object"
+    required:
+    - "client_id"
+    - "description"
+    - "id"
+    - "name"
+    properties:
+      id:
+        type: "string"
+      name:
+        type: "string"
+      description:
+        type: "string"
+      client_id:
+        type: "string"
+    title: "PermissionUpdateRequest"
+  UpdateGroupMembershipRequest:
+    type: "object"
+    required:
+    - "id"
+    properties:
+      id:
+        type: "string"
+      users:
+        type: "array"
+        items:
+          type: "object"
+          properties:
+            id:
+              type: "string"
+            name:
+              type: "string"
+            email:
+              type: "string"
+      client_id:
+        type: "string"
+    title: "UpdateGroupMembershipRequest"
+  UserCreateRequest:
+    type: "object"
+    required:
+    - "connection"
+    - "email"
+    - "name"
+    - "password"
+    properties:
+      connection:
+        type: "string"
+      name:
+        type: "string"
+      email:
+        type: "string"
+      password:
+        type: "string"
+      username:
+        type: "string"
+    title: "UserCreateRequest"
+  UserTokenResponse:
+    title: "UserTokenResponse"
+    type: "array"
+    items:
+      type: "string"
