@@ -20,6 +20,7 @@ data "template_file" "apigw" {
     get_group_members_lambda = "${module.get_group_members_lambda.lambda_arn}"
     delete_group_members_lambda = "${module.delete_group_members_lambda.lambda_arn}"
     add_group_members_lambda = "${module.add_group_members_lambda.lambda_arn}"
+    get_group_permissions_lambda = "${module.get_group_permissions_lambda.lambda_arn}"
     delete_group_permissions_lambda = "${module.delete_group_permissions_lambda.lambda_arn}"
     add_group_permissions_lambda = "${module.add_group_permissions_lambda.lambda_arn}"
     get_all_ops_groups_lambda = "${module.get_all_ops_groups_lambda.lambda_arn}"
