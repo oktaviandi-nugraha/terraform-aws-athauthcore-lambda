@@ -991,7 +991,7 @@ module "delete_user_from_groups_lambda" {
 
   lambda_code_path = "${var.delete_user_from_groups_lambda_code_path}"
 
-  lambda_name = "${local.delete_user_from_groups_name}"
+  lambda_name = "${local.delete_user_from_groups_lambda_name}"
 
   lambda_runtime = "${local.lambda_runtime}"
 
