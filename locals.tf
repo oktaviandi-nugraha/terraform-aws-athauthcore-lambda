@@ -1,7 +1,7 @@
 locals {
   product_domain = "ath"
   service_name   = "athauth"
-  lambda_runtime = "nodejs10.x"
+  lambda_runtime = "nodejs8.10"
 
   lambda_handler = "lib.default"
 
