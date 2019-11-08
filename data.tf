@@ -8,7 +8,7 @@ data "aws_kms_alias" "tvlk_secret_alias" {
 
 
 data "template_file" "apigw" {
-  template = "${file("${path.module}/templates/apigw.yaml")}"
+  template = "${file("${path.module}/templates/template-core.yaml")}"
 
   vars = {
     api_name = "${var.api_name}"
@@ -17,12 +17,12 @@ data "template_file" "apigw" {
     update_group_lambda = "${module.update_group_lambda.lambda_arn}"
     delete_group_lambda = "${module.delete_group_lambda.lambda_arn}"
     get_group_by_id_lambda = "${module.get_group_by_id_lambda.lambda_arn}"
-    get_group_members_lambda = "${module.get_group_members_lambda.lambda_arn}"
-    delete_group_members_lambda = "${module.delete_group_members_lambda.lambda_arn}"
-    add_group_members_lambda = "${module.add_group_members_lambda.lambda_arn}"
     get_group_permissions_lambda = "${module.get_group_permissions_lambda.lambda_arn}"
     delete_group_permissions_lambda = "${module.delete_group_permissions_lambda.lambda_arn}"
     add_group_permissions_lambda = "${module.add_group_permissions_lambda.lambda_arn}"
+    get_group_members_lambda = "${module.get_group_members_lambda.lambda_arn}"
+    delete_group_members_lambda = "${module.delete_group_members_lambda.lambda_arn}"
+    add_group_members_lambda = "${module.add_group_members_lambda.lambda_arn}"
     get_all_ops_groups_lambda = "${module.get_all_ops_groups_lambda.lambda_arn}"
     update_ops_members_lambda = "${module.update_ops_members_lambda.lambda_arn}"
     get_all_permissions_lambda = "${module.get_all_permissions_lambda.lambda_arn}"

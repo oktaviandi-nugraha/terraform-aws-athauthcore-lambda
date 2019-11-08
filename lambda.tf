@@ -19,13 +19,13 @@ data "aws_iam_policy_document" "allow-read-parameter-store" {
     ]
 
     resources = [
-      "arn:aws:kms:${data.aws_region.current.name}:${data.aws_caller_identity.aws_account.account_id}:key/${data.aws_kms_alias.tvlk_secret_alias.target_key_id}",
+      "${data.aws_kms_alias.tvlk_secret_alias.target_key_arn}"
     ]
   }
 }
 
 module "get_all_group_lambda" {
-  source = "git@github.com:traveloka/terraform-aws-lambda.git?ref=v0.1.0"
+  source = "git@github.com:traveloka/terraform-aws-lambda.git?ref=v0.6.0"
 
   lambda_code_bucket = "${var.lambda_code_bucket}"
 
@@ -57,7 +57,7 @@ module "get_all_group_lambda" {
 }
 
 module "save_group_lambda" {
-  source = "git@github.com:traveloka/terraform-aws-lambda.git?ref=v0.1.0"
+  source = "git@github.com:traveloka/terraform-aws-lambda.git?ref=v0.6.0"
 
   lambda_code_bucket = "${var.lambda_code_bucket}"
 
@@ -89,7 +89,7 @@ module "save_group_lambda" {
 }
 
 module "update_group_lambda" {
-  source = "git@github.com:traveloka/terraform-aws-lambda.git?ref=v0.1.0"
+  source = "git@github.com:traveloka/terraform-aws-lambda.git?ref=v0.6.0"
 
   lambda_code_bucket = "${var.lambda_code_bucket}"
 
@@ -121,7 +121,7 @@ module "update_group_lambda" {
 }
 
 module "delete_group_lambda" {
-  source = "git@github.com:traveloka/terraform-aws-lambda.git?ref=v0.1.0"
+  source = "git@github.com:traveloka/terraform-aws-lambda.git?ref=v0.6.0"
 
   lambda_code_bucket = "${var.lambda_code_bucket}"
 
@@ -153,7 +153,7 @@ module "delete_group_lambda" {
 }
 
 module "get_group_by_id_lambda" {
-  source = "git@github.com:traveloka/terraform-aws-lambda.git?ref=v0.1.0"
+  source = "git@github.com:traveloka/terraform-aws-lambda.git?ref=v0.6.0"
 
   lambda_code_bucket = "${var.lambda_code_bucket}"
 
@@ -185,7 +185,7 @@ module "get_group_by_id_lambda" {
 }
 
 module "get_group_members_lambda" {
-  source = "git@github.com:traveloka/terraform-aws-lambda.git?ref=v0.1.0"
+  source = "git@github.com:traveloka/terraform-aws-lambda.git?ref=v0.6.0"
 
   lambda_code_bucket = "${var.lambda_code_bucket}"
 
@@ -217,7 +217,7 @@ module "get_group_members_lambda" {
 }
 
 module "delete_group_members_lambda" {
-  source = "git@github.com:traveloka/terraform-aws-lambda.git?ref=v0.1.0"
+  source = "git@github.com:traveloka/terraform-aws-lambda.git?ref=v0.6.0"
 
   lambda_code_bucket = "${var.lambda_code_bucket}"
 
@@ -249,7 +249,7 @@ module "delete_group_members_lambda" {
 }
 
 module "add_group_members_lambda" {
-  source = "git@github.com:traveloka/terraform-aws-lambda.git?ref=v0.1.0"
+  source = "git@github.com:traveloka/terraform-aws-lambda.git?ref=v0.6.0"
 
   lambda_code_bucket = "${var.lambda_code_bucket}"
 
@@ -281,7 +281,7 @@ module "add_group_members_lambda" {
 }
 
 module "get_group_permissions_lambda" {
-  source = "git@github.com:traveloka/terraform-aws-lambda.git?ref=v0.1.0"
+  source = "git@github.com:traveloka/terraform-aws-lambda.git?ref=v0.6.0"
 
   lambda_code_bucket = "${var.lambda_code_bucket}"
 
@@ -313,7 +313,7 @@ module "get_group_permissions_lambda" {
 }
 
 module "delete_group_permissions_lambda" {
-  source = "git@github.com:traveloka/terraform-aws-lambda.git?ref=v0.1.0"
+  source = "git@github.com:traveloka/terraform-aws-lambda.git?ref=v0.6.0"
 
   lambda_code_bucket = "${var.lambda_code_bucket}"
 
@@ -345,7 +345,7 @@ module "delete_group_permissions_lambda" {
 }
 
 module "add_group_permissions_lambda" {
-  source = "git@github.com:traveloka/terraform-aws-lambda.git?ref=v0.1.0"
+  source = "git@github.com:traveloka/terraform-aws-lambda.git?ref=v0.6.0"
 
   lambda_code_bucket = "${var.lambda_code_bucket}"
 
@@ -377,7 +377,7 @@ module "add_group_permissions_lambda" {
 }
 
 module "get_all_ops_groups_lambda" {
-  source = "git@github.com:traveloka/terraform-aws-lambda.git?ref=v0.1.0"
+  source = "git@github.com:traveloka/terraform-aws-lambda.git?ref=v0.6.0"
 
   lambda_code_bucket = "${var.lambda_code_bucket}"
 
@@ -409,7 +409,7 @@ module "get_all_ops_groups_lambda" {
 }
 
 module "update_ops_members_lambda" {
-  source = "git@github.com:traveloka/terraform-aws-lambda.git?ref=v0.1.0"
+  source = "git@github.com:traveloka/terraform-aws-lambda.git?ref=v0.6.0"
 
   lambda_code_bucket = "${var.lambda_code_bucket}"
 
@@ -441,7 +441,7 @@ module "update_ops_members_lambda" {
 }
 
 module "get_all_permissions_lambda" {
-  source = "git@github.com:traveloka/terraform-aws-lambda.git?ref=v0.1.0"
+  source = "git@github.com:traveloka/terraform-aws-lambda.git?ref=v0.6.0"
 
   lambda_code_bucket = "${var.lambda_code_bucket}"
 
@@ -473,7 +473,7 @@ module "get_all_permissions_lambda" {
 }
 
 module "save_permission_lambda" {
-  source = "git@github.com:traveloka/terraform-aws-lambda.git?ref=v0.1.0"
+  source = "git@github.com:traveloka/terraform-aws-lambda.git?ref=v0.6.0"
 
   lambda_code_bucket = "${var.lambda_code_bucket}"
 
@@ -505,7 +505,7 @@ module "save_permission_lambda" {
 }
 
 module "delete_permission_lambda" {
-  source = "git@github.com:traveloka/terraform-aws-lambda.git?ref=v0.1.0"
+  source = "git@github.com:traveloka/terraform-aws-lambda.git?ref=v0.6.0"
 
   lambda_code_bucket = "${var.lambda_code_bucket}"
 
@@ -537,7 +537,7 @@ module "delete_permission_lambda" {
 }
 
 module "get_all_users_lambda" {
-  source = "git@github.com:traveloka/terraform-aws-lambda.git?ref=v0.1.0"
+  source = "git@github.com:traveloka/terraform-aws-lambda.git?ref=v0.6.0"
 
   lambda_code_bucket = "${var.lambda_code_bucket}"
 
@@ -569,7 +569,7 @@ module "get_all_users_lambda" {
 }
 
 module "save_user_lambda" {
-  source = "git@github.com:traveloka/terraform-aws-lambda.git?ref=v0.1.0"
+  source = "git@github.com:traveloka/terraform-aws-lambda.git?ref=v0.6.0"
 
   lambda_code_bucket = "${var.lambda_code_bucket}"
 
@@ -601,7 +601,7 @@ module "save_user_lambda" {
 }
 
 module "get_user_by_email_lambda" {
-  source = "git@github.com:traveloka/terraform-aws-lambda.git?ref=v0.1.0"
+  source = "git@github.com:traveloka/terraform-aws-lambda.git?ref=v0.6.0"
 
   lambda_code_bucket = "${var.lambda_code_bucket}"
 
@@ -633,7 +633,7 @@ module "get_user_by_email_lambda" {
 }
 
 module "change_user_password_lambda" {
-  source = "git@github.com:traveloka/terraform-aws-lambda.git?ref=v0.1.0"
+  source = "git@github.com:traveloka/terraform-aws-lambda.git?ref=v0.6.0"
 
   lambda_code_bucket = "${var.lambda_code_bucket}"
 
@@ -665,7 +665,7 @@ module "change_user_password_lambda" {
 }
 
 module "get_refresh_tokens_lambda" {
-  source = "git@github.com:traveloka/terraform-aws-lambda.git?ref=v0.1.0"
+  source = "git@github.com:traveloka/terraform-aws-lambda.git?ref=v0.6.0"
 
   lambda_code_bucket = "${var.lambda_code_bucket}"
 
@@ -697,7 +697,7 @@ module "get_refresh_tokens_lambda" {
 }
 
 module "revoke_refresh_tokens_lambda" {
-  source = "git@github.com:traveloka/terraform-aws-lambda.git?ref=v0.1.0"
+  source = "git@github.com:traveloka/terraform-aws-lambda.git?ref=v0.6.0"
 
   lambda_code_bucket = "${var.lambda_code_bucket}"
 
@@ -729,7 +729,7 @@ module "revoke_refresh_tokens_lambda" {
 }
 
 module "unblock_user_lambda" {
-  source = "git@github.com:traveloka/terraform-aws-lambda.git?ref=v0.1.0"
+  source = "git@github.com:traveloka/terraform-aws-lambda.git?ref=v0.6.0"
 
   lambda_code_bucket = "${var.lambda_code_bucket}"
 
@@ -761,7 +761,7 @@ module "unblock_user_lambda" {
 }
 
 module "get_user_by_username_lambda" {
-  source = "git@github.com:traveloka/terraform-aws-lambda.git?ref=v0.1.0"
+  source = "git@github.com:traveloka/terraform-aws-lambda.git?ref=v0.6.0"
 
   lambda_code_bucket = "${var.lambda_code_bucket}"
 
@@ -793,7 +793,7 @@ module "get_user_by_username_lambda" {
 }
 
 module "update_username_lambda" {
-  source = "git@github.com:traveloka/terraform-aws-lambda.git?ref=v0.1.0"
+  source = "git@github.com:traveloka/terraform-aws-lambda.git?ref=v0.6.0"
 
   lambda_code_bucket = "${var.lambda_code_bucket}"
 
@@ -825,7 +825,7 @@ module "update_username_lambda" {
 }
 
 module "get_user_by_id_lambda" {
-  source = "git@github.com:traveloka/terraform-aws-lambda.git?ref=v0.1.0"
+  source = "git@github.com:traveloka/terraform-aws-lambda.git?ref=v0.6.0"
 
   lambda_code_bucket = "${var.lambda_code_bucket}"
 
@@ -857,7 +857,7 @@ module "get_user_by_id_lambda" {
 }
 
 module "delete_user_lambda" {
-  source = "git@github.com:traveloka/terraform-aws-lambda.git?ref=v0.1.0"
+  source = "git@github.com:traveloka/terraform-aws-lambda.git?ref=v0.6.0"
 
   lambda_code_bucket = "${var.lambda_code_bucket}"
 
@@ -889,7 +889,7 @@ module "delete_user_lambda" {
 }
 
 module "update_user_lambda" {
-  source = "git@github.com:traveloka/terraform-aws-lambda.git?ref=v0.1.0"
+  source = "git@github.com:traveloka/terraform-aws-lambda.git?ref=v0.6.0"
 
   lambda_code_bucket = "${var.lambda_code_bucket}"
 
@@ -921,7 +921,7 @@ module "update_user_lambda" {
 }
 
 module "get_user_groups_lambda" {
-  source = "git@github.com:traveloka/terraform-aws-lambda.git?ref=v0.1.0"
+  source = "git@github.com:traveloka/terraform-aws-lambda.git?ref=v0.6.0"
 
   lambda_code_bucket = "${var.lambda_code_bucket}"
 
@@ -953,7 +953,7 @@ module "get_user_groups_lambda" {
 }
 
 module "add_user_to_groups_lambda" {
-  source = "git@github.com:traveloka/terraform-aws-lambda.git?ref=v0.1.0"
+  source = "git@github.com:traveloka/terraform-aws-lambda.git?ref=v0.6.0"
 
   lambda_code_bucket = "${var.lambda_code_bucket}"
 
@@ -985,7 +985,7 @@ module "add_user_to_groups_lambda" {
 }
 
 module "delete_user_from_groups_lambda" {
-  source = "git@github.com:traveloka/terraform-aws-lambda.git?ref=v0.1.0"
+  source = "git@github.com:traveloka/terraform-aws-lambda.git?ref=v0.6.0"
 
   lambda_code_bucket = "${var.lambda_code_bucket}"
 
@@ -1017,7 +1017,7 @@ module "delete_user_from_groups_lambda" {
 }
 
 module "authoriser_lambda" {
-  source = "git@github.com:traveloka/terraform-aws-lambda.git?ref=v0.1.0"
+  source = "git@github.com:traveloka/terraform-aws-lambda.git?ref=v0.6.0"
 
   lambda_code_bucket = "${var.lambda_code_bucket}"
 
