@@ -33,13 +33,13 @@ module "get_all_group_lambda" {
 
   lambda_name = "${local.get_all_group_lambda_name}"
 
-  lambda_runtime = "${local.lambda_runtime}"
+  lambda_runtime = "${var.lambda_runtime}"
 
   lambda_handler = "${local.lambda_handler}"
 
-  lambda_memory_size = "${local.lambda_memory_size}"
+  lambda_memory_size = "${var.lambda_memory_size}"
 
-  lambda_timeout = "${local.lambda_timeout}"
+  lambda_timeout = "${var.lambda_timeout}"
 
   environment = "${var.environment}"
 
@@ -65,13 +65,13 @@ module "save_group_lambda" {
 
   lambda_name = "${local.save_group_lambda_name}"
 
-  lambda_runtime = "${local.lambda_runtime}"
+  lambda_runtime = "${var.lambda_runtime}"
 
   lambda_handler = "${local.lambda_handler}"
 
-  lambda_memory_size = "${local.lambda_memory_size}"
+  lambda_memory_size = "${var.lambda_memory_size}"
 
-  lambda_timeout = "${local.lambda_timeout}"
+  lambda_timeout = "${var.lambda_timeout}"
 
   environment = "${var.environment}"
 
@@ -97,13 +97,13 @@ module "update_group_lambda" {
 
   lambda_name = "${local.update_group_lambda_name}"
 
-  lambda_runtime = "${local.lambda_runtime}"
+  lambda_runtime = "${var.lambda_runtime}"
 
   lambda_handler = "${local.lambda_handler}"
 
-  lambda_memory_size = "${local.lambda_memory_size}"
+  lambda_memory_size = "${var.lambda_memory_size}"
 
-  lambda_timeout = "${local.lambda_timeout}"
+  lambda_timeout = "${var.lambda_timeout}"
 
   environment = "${var.environment}"
 
@@ -129,13 +129,13 @@ module "delete_group_lambda" {
 
   lambda_name = "${local.delete_group_lambda_name}"
 
-  lambda_runtime = "${local.lambda_runtime}"
+  lambda_runtime = "${var.lambda_runtime}"
 
   lambda_handler = "${local.lambda_handler}"
 
-  lambda_memory_size = "${local.lambda_memory_size}"
+  lambda_memory_size = "${var.lambda_memory_size}"
 
-  lambda_timeout = "${local.lambda_timeout}"
+  lambda_timeout = "${var.lambda_timeout}"
 
   environment = "${var.environment}"
 
@@ -161,13 +161,13 @@ module "get_group_by_id_lambda" {
 
   lambda_name = "${local.get_group_by_id_lambda_name}"
 
-  lambda_runtime = "${local.lambda_runtime}"
+  lambda_runtime = "${var.lambda_runtime}"
 
   lambda_handler = "${local.lambda_handler}"
 
-  lambda_memory_size = "${local.lambda_memory_size}"
+  lambda_memory_size = "${var.lambda_memory_size}"
 
-  lambda_timeout = "${local.lambda_timeout}"
+  lambda_timeout = "${var.lambda_timeout}"
 
   environment = "${var.environment}"
 
@@ -193,13 +193,13 @@ module "get_group_members_lambda" {
 
   lambda_name = "${local.get_group_members_lambda_name}"
 
-  lambda_runtime = "${local.lambda_runtime}"
+  lambda_runtime = "${var.lambda_runtime}"
 
   lambda_handler = "${local.lambda_handler}"
 
-  lambda_memory_size = "${local.lambda_memory_size}"
+  lambda_memory_size = "${var.lambda_memory_size}"
 
-  lambda_timeout = "${local.lambda_timeout}"
+  lambda_timeout = "${var.lambda_timeout}"
 
   environment = "${var.environment}"
 
@@ -225,13 +225,13 @@ module "delete_group_members_lambda" {
 
   lambda_name = "${local.delete_group_members_lambda_name}"
 
-  lambda_runtime = "${local.lambda_runtime}"
+  lambda_runtime = "${var.lambda_runtime}"
 
   lambda_handler = "${local.lambda_handler}"
 
-  lambda_memory_size = "${local.lambda_memory_size}"
+  lambda_memory_size = "${var.lambda_memory_size}"
 
-  lambda_timeout = "${local.lambda_timeout}"
+  lambda_timeout = "${var.lambda_timeout}"
 
   environment = "${var.environment}"
 
@@ -257,13 +257,13 @@ module "add_group_members_lambda" {
 
   lambda_name = "${local.add_group_members_lambda_name}"
 
-  lambda_runtime = "${local.lambda_runtime}"
+  lambda_runtime = "${var.lambda_runtime}"
 
   lambda_handler = "${local.lambda_handler}"
 
-  lambda_memory_size = "${local.lambda_memory_size}"
+  lambda_memory_size = "${var.lambda_memory_size}"
 
-  lambda_timeout = "${local.lambda_timeout}"
+  lambda_timeout = "${var.lambda_timeout}"
 
   environment = "${var.environment}"
 
@@ -289,13 +289,13 @@ module "get_group_permissions_lambda" {
 
   lambda_name = "${local.get_group_permissions_lambda_name}"
 
-  lambda_runtime = "${local.lambda_runtime}"
+  lambda_runtime = "${var.lambda_runtime}"
 
   lambda_handler = "${local.lambda_handler}"
 
-  lambda_memory_size = "${local.lambda_memory_size}"
+  lambda_memory_size = "${var.lambda_memory_size}"
 
-  lambda_timeout = "${local.lambda_timeout}"
+  lambda_timeout = "${var.lambda_timeout}"
 
   environment = "${var.environment}"
 
@@ -321,13 +321,13 @@ module "delete_group_permissions_lambda" {
 
   lambda_name = "${local.delete_group_permissions_lambda_name}"
 
-  lambda_runtime = "${local.lambda_runtime}"
+  lambda_runtime = "${var.lambda_runtime}"
 
   lambda_handler = "${local.lambda_handler}"
 
-  lambda_memory_size = "${local.lambda_memory_size}"
+  lambda_memory_size = "${var.lambda_memory_size}"
 
-  lambda_timeout = "${local.lambda_timeout}"
+  lambda_timeout = "${var.lambda_timeout}"
 
   environment = "${var.environment}"
 
@@ -353,13 +353,13 @@ module "add_group_permissions_lambda" {
 
   lambda_name = "${local.add_group_permissions_lambda_name}"
 
-  lambda_runtime = "${local.lambda_runtime}"
+  lambda_runtime = "${var.lambda_runtime}"
 
   lambda_handler = "${local.lambda_handler}"
 
-  lambda_memory_size = "${local.lambda_memory_size}"
+  lambda_memory_size = "${var.lambda_memory_size}"
 
-  lambda_timeout = "${local.lambda_timeout}"
+  lambda_timeout = "${var.lambda_timeout}"
 
   environment = "${var.environment}"
 
@@ -385,13 +385,13 @@ module "get_all_ops_groups_lambda" {
 
   lambda_name = "${local.get_all_ops_groups_lambda_name}"
 
-  lambda_runtime = "${local.lambda_runtime}"
+  lambda_runtime = "${var.lambda_runtime}"
 
   lambda_handler = "${local.lambda_handler}"
 
-  lambda_memory_size = "${local.lambda_memory_size}"
+  lambda_memory_size = "${var.lambda_memory_size}"
 
-  lambda_timeout = "${local.lambda_timeout}"
+  lambda_timeout = "${var.lambda_timeout}"
 
   environment = "${var.environment}"
 
@@ -417,13 +417,13 @@ module "update_ops_members_lambda" {
 
   lambda_name = "${local.update_ops_members_lambda_name}"
 
-  lambda_runtime = "${local.lambda_runtime}"
+  lambda_runtime = "${var.lambda_runtime}"
 
   lambda_handler = "${local.lambda_handler}"
 
-  lambda_memory_size = "${local.lambda_memory_size}"
+  lambda_memory_size = "${var.lambda_memory_size}"
 
-  lambda_timeout = "${local.lambda_timeout}"
+  lambda_timeout = "${var.lambda_timeout}"
 
   environment = "${var.environment}"
 
@@ -449,13 +449,13 @@ module "get_all_permissions_lambda" {
 
   lambda_name = "${local.get_all_permissions_lambda_name}"
 
-  lambda_runtime = "${local.lambda_runtime}"
+  lambda_runtime = "${var.lambda_runtime}"
 
   lambda_handler = "${local.lambda_handler}"
 
-  lambda_memory_size = "${local.lambda_memory_size}"
+  lambda_memory_size = "${var.lambda_memory_size}"
 
-  lambda_timeout = "${local.lambda_timeout}"
+  lambda_timeout = "${var.lambda_timeout}"
 
   environment = "${var.environment}"
 
@@ -481,13 +481,13 @@ module "save_permission_lambda" {
 
   lambda_name = "${local.save_permission_lambda_name}"
 
-  lambda_runtime = "${local.lambda_runtime}"
+  lambda_runtime = "${var.lambda_runtime}"
 
   lambda_handler = "${local.lambda_handler}"
 
-  lambda_memory_size = "${local.lambda_memory_size}"
+  lambda_memory_size = "${var.lambda_memory_size}"
 
-  lambda_timeout = "${local.lambda_timeout}"
+  lambda_timeout = "${var.lambda_timeout}"
 
   environment = "${var.environment}"
 
@@ -513,13 +513,13 @@ module "delete_permission_lambda" {
 
   lambda_name = "${local.delete_permission_lambda_name}"
 
-  lambda_runtime = "${local.lambda_runtime}"
+  lambda_runtime = "${var.lambda_runtime}"
 
   lambda_handler = "${local.lambda_handler}"
 
-  lambda_memory_size = "${local.lambda_memory_size}"
+  lambda_memory_size = "${var.lambda_memory_size}"
 
-  lambda_timeout = "${local.lambda_timeout}"
+  lambda_timeout = "${var.lambda_timeout}"
 
   environment = "${var.environment}"
 
@@ -545,13 +545,13 @@ module "get_all_users_lambda" {
 
   lambda_name = "${local.get_all_users_lambda_name}"
 
-  lambda_runtime = "${local.lambda_runtime}"
+  lambda_runtime = "${var.lambda_runtime}"
 
   lambda_handler = "${local.lambda_handler}"
 
-  lambda_memory_size = "${local.lambda_memory_size}"
+  lambda_memory_size = "${var.lambda_memory_size}"
 
-  lambda_timeout = "${local.lambda_timeout}"
+  lambda_timeout = "${var.lambda_timeout}"
 
   environment = "${var.environment}"
 
@@ -577,13 +577,13 @@ module "save_user_lambda" {
 
   lambda_name = "${local.save_user_lambda_name}"
 
-  lambda_runtime = "${local.lambda_runtime}"
+  lambda_runtime = "${var.lambda_runtime}"
 
   lambda_handler = "${local.lambda_handler}"
 
-  lambda_memory_size = "${local.lambda_memory_size}"
+  lambda_memory_size = "${var.lambda_memory_size}"
 
-  lambda_timeout = "${local.lambda_timeout}"
+  lambda_timeout = "${var.lambda_timeout}"
 
   environment = "${var.environment}"
 
@@ -609,13 +609,13 @@ module "get_user_by_email_lambda" {
 
   lambda_name = "${local.get_user_by_email_lambda_name}"
 
-  lambda_runtime = "${local.lambda_runtime}"
+  lambda_runtime = "${var.lambda_runtime}"
 
   lambda_handler = "${local.lambda_handler}"
 
-  lambda_memory_size = "${local.lambda_memory_size}"
+  lambda_memory_size = "${var.lambda_memory_size}"
 
-  lambda_timeout = "${local.lambda_timeout}"
+  lambda_timeout = "${var.lambda_timeout}"
 
   environment = "${var.environment}"
 
@@ -641,13 +641,13 @@ module "change_user_password_lambda" {
 
   lambda_name = "${local.change_user_password_lambda_name}"
 
-  lambda_runtime = "${local.lambda_runtime}"
+  lambda_runtime = "${var.lambda_runtime}"
 
   lambda_handler = "${local.lambda_handler}"
 
-  lambda_memory_size = "${local.lambda_memory_size}"
+  lambda_memory_size = "${var.lambda_memory_size}"
 
-  lambda_timeout = "${local.lambda_timeout}"
+  lambda_timeout = "${var.lambda_timeout}"
 
   environment = "${var.environment}"
 
@@ -673,13 +673,13 @@ module "get_refresh_tokens_lambda" {
 
   lambda_name = "${local.get_refresh_tokens_lambda_name}"
 
-  lambda_runtime = "${local.lambda_runtime}"
+  lambda_runtime = "${var.lambda_runtime}"
 
   lambda_handler = "${local.lambda_handler}"
 
-  lambda_memory_size = "${local.lambda_memory_size}"
+  lambda_memory_size = "${var.lambda_memory_size}"
 
-  lambda_timeout = "${local.lambda_timeout}"
+  lambda_timeout = "${var.lambda_timeout}"
 
   environment = "${var.environment}"
 
@@ -705,13 +705,13 @@ module "revoke_refresh_tokens_lambda" {
 
   lambda_name = "${local.revoke_refresh_tokens_lambda_name}"
 
-  lambda_runtime = "${local.lambda_runtime}"
+  lambda_runtime = "${var.lambda_runtime}"
 
   lambda_handler = "${local.lambda_handler}"
 
-  lambda_memory_size = "${local.lambda_memory_size}"
+  lambda_memory_size = "${var.lambda_memory_size}"
 
-  lambda_timeout = "${local.lambda_timeout}"
+  lambda_timeout = "${var.lambda_timeout}"
 
   environment = "${var.environment}"
 
@@ -737,13 +737,13 @@ module "unblock_user_lambda" {
 
   lambda_name = "${local.unblock_user_lambda_name}"
 
-  lambda_runtime = "${local.lambda_runtime}"
+  lambda_runtime = "${var.lambda_runtime}"
 
   lambda_handler = "${local.lambda_handler}"
 
-  lambda_memory_size = "${local.lambda_memory_size}"
+  lambda_memory_size = "${var.lambda_memory_size}"
 
-  lambda_timeout = "${local.lambda_timeout}"
+  lambda_timeout = "${var.lambda_timeout}"
 
   environment = "${var.environment}"
 
@@ -769,13 +769,13 @@ module "get_user_by_username_lambda" {
 
   lambda_name = "${local.get_user_by_username_lambda_name}"
 
-  lambda_runtime = "${local.lambda_runtime}"
+  lambda_runtime = "${var.lambda_runtime}"
 
   lambda_handler = "${local.lambda_handler}"
 
-  lambda_memory_size = "${local.lambda_memory_size}"
+  lambda_memory_size = "${var.lambda_memory_size}"
 
-  lambda_timeout = "${local.lambda_timeout}"
+  lambda_timeout = "${var.lambda_timeout}"
 
   environment = "${var.environment}"
 
@@ -801,13 +801,13 @@ module "update_username_lambda" {
 
   lambda_name = "${local.update_username_lambda_name}"
 
-  lambda_runtime = "${local.lambda_runtime}"
+  lambda_runtime = "${var.lambda_runtime}"
 
   lambda_handler = "${local.lambda_handler}"
 
-  lambda_memory_size = "${local.lambda_memory_size}"
+  lambda_memory_size = "${var.lambda_memory_size}"
 
-  lambda_timeout = "${local.lambda_timeout}"
+  lambda_timeout = "${var.lambda_timeout}"
 
   environment = "${var.environment}"
 
@@ -833,13 +833,13 @@ module "get_user_by_id_lambda" {
 
   lambda_name = "${local.get_user_by_id_lambda_name}"
 
-  lambda_runtime = "${local.lambda_runtime}"
+  lambda_runtime = "${var.lambda_runtime}"
 
   lambda_handler = "${local.lambda_handler}"
 
-  lambda_memory_size = "${local.lambda_memory_size}"
+  lambda_memory_size = "${var.lambda_memory_size}"
 
-  lambda_timeout = "${local.lambda_timeout}"
+  lambda_timeout = "${var.lambda_timeout}"
 
   environment = "${var.environment}"
 
@@ -865,13 +865,13 @@ module "delete_user_lambda" {
 
   lambda_name = "${local.delete_user_lambda_name}"
 
-  lambda_runtime = "${local.lambda_runtime}"
+  lambda_runtime = "${var.lambda_runtime}"
 
   lambda_handler = "${local.lambda_handler}"
 
-  lambda_memory_size = "${local.lambda_memory_size}"
+  lambda_memory_size = "${var.lambda_memory_size}"
 
-  lambda_timeout = "${local.lambda_timeout}"
+  lambda_timeout = "${var.lambda_timeout}"
 
   environment = "${var.environment}"
 
@@ -897,13 +897,13 @@ module "update_user_lambda" {
 
   lambda_name = "${local.update_user_lambda_name}"
 
-  lambda_runtime = "${local.lambda_runtime}"
+  lambda_runtime = "${var.lambda_runtime}"
 
   lambda_handler = "${local.lambda_handler}"
 
-  lambda_memory_size = "${local.lambda_memory_size}"
+  lambda_memory_size = "${var.lambda_memory_size}"
 
-  lambda_timeout = "${local.lambda_timeout}"
+  lambda_timeout = "${var.lambda_timeout}"
 
   environment = "${var.environment}"
 
@@ -929,13 +929,13 @@ module "get_user_groups_lambda" {
 
   lambda_name = "${local.get_user_groups_lambda_name}"
 
-  lambda_runtime = "${local.lambda_runtime}"
+  lambda_runtime = "${var.lambda_runtime}"
 
   lambda_handler = "${local.lambda_handler}"
 
-  lambda_memory_size = "${local.lambda_memory_size}"
+  lambda_memory_size = "${var.lambda_memory_size}"
 
-  lambda_timeout = "${local.lambda_timeout}"
+  lambda_timeout = "${var.lambda_timeout}"
 
   environment = "${var.environment}"
 
@@ -961,13 +961,13 @@ module "add_user_to_groups_lambda" {
 
   lambda_name = "${local.add_user_to_groups_lambda_name}"
 
-  lambda_runtime = "${local.lambda_runtime}"
+  lambda_runtime = "${var.lambda_runtime}"
 
   lambda_handler = "${local.lambda_handler}"
 
-  lambda_memory_size = "${local.lambda_memory_size}"
+  lambda_memory_size = "${var.lambda_memory_size}"
 
-  lambda_timeout = "${local.lambda_timeout}"
+  lambda_timeout = "${var.lambda_timeout}"
 
   environment = "${var.environment}"
 
@@ -993,13 +993,13 @@ module "delete_user_from_groups_lambda" {
 
   lambda_name = "${local.delete_user_from_groups_lambda_name}"
 
-  lambda_runtime = "${local.lambda_runtime}"
+  lambda_runtime = "${var.lambda_runtime}"
 
   lambda_handler = "${local.lambda_handler}"
 
-  lambda_memory_size = "${local.lambda_memory_size}"
+  lambda_memory_size = "${var.lambda_memory_size}"
 
-  lambda_timeout = "${local.lambda_timeout}"
+  lambda_timeout = "${var.lambda_timeout}"
 
   environment = "${var.environment}"
 
@@ -1025,13 +1025,13 @@ module "authoriser_lambda" {
 
   lambda_name = "${local.authoriser_lambda_name}"
 
-  lambda_runtime = "${local.lambda_runtime}"
+  lambda_runtime = "${var.lambda_runtime}"
 
   lambda_handler = "${local.lambda_handler}"
 
-  lambda_memory_size = "${local.lambda_memory_size}"
+  lambda_memory_size = "${var.lambda_memory_size}"
 
-  lambda_timeout = "${local.lambda_timeout}"
+  lambda_timeout = "${var.lambda_timeout}"
 
   environment = "${var.environment}"
 

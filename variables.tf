@@ -216,3 +216,18 @@ variable "extension_api_url" {
   type        = "string"
   description = "URL of Auth0 extension url"
 }
+
+variable "lambda_runtime" {
+  type        = "string"
+  description = "Lambda runtime used"
+}
+
+variable "lambda_memory_size" {
+  type        = "string"
+  description = "The memory size of the lambda"
+}
+
+variable "lambda_timeout" {
+  type        = "string"
+  description = "The timeout of lambda execution"
+}

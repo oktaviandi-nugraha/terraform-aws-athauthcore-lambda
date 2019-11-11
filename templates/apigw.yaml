@@ -25,7 +25,7 @@ paths:
       security:
       - Auth0Authorizer: []
       x-amazon-apigateway-integration:
-        uri: "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/${get_all_group_lambda}/invocations"
+        uri: "arn:aws:apigateway:us-west-1:lambda:path/2015-03-31/functions/${get_all_group_lambda}/invocations"
         responses:
           default:
             statusCode: "200"
@@ -74,7 +74,7 @@ paths:
       security:
       - Auth0Authorizer: []
       x-amazon-apigateway-integration:
-        uri: "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/${save_group_lambda}/invocations"
+        uri: "arn:aws:apigateway:us-west-1:lambda:path/2015-03-31/functions/${save_group_lambda}/invocations"
         responses:
           ^\[InternalServiceError\].*:
             statusCode: "500"
@@ -137,7 +137,7 @@ paths:
       security:
       - Auth0Authorizer: []
       x-amazon-apigateway-integration:
-        uri: "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/${update_group_lambda}/invocations"
+        uri: "arn:aws:apigateway:us-west-1:lambda:path/2015-03-31/functions/${update_group_lambda}/invocations"
         responses:
           ^\[InternalServiceError\].*:
             statusCode: "500"
@@ -199,7 +199,7 @@ paths:
       security:
       - Auth0Authorizer: []
       x-amazon-apigateway-integration:
-        uri: "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/${delete_group_lambda}/invocations"
+        uri: "arn:aws:apigateway:us-west-1:lambda:path/2015-03-31/functions/${delete_group_lambda}/invocations"
         responses:
           ^\[InternalServiceError\].*:
             statusCode: "500"
@@ -253,7 +253,7 @@ paths:
       security:
       - Auth0Authorizer: []
       x-amazon-apigateway-integration:
-        uri: "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/${get_group_by_id_lambda}/invocations"
+        uri: "arn:aws:apigateway:us-west-1:lambda:path/2015-03-31/functions/${get_group_by_id_lambda}/invocations"
         responses:
           ^\[InternalServiceError\].*:
             statusCode: "500"
@@ -324,7 +324,7 @@ paths:
       security:
       - Auth0Authorizer: []
       x-amazon-apigateway-integration:
-        uri: "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/${get_group_members_lambda}/invocations"
+        uri: "arn:aws:apigateway:us-west-1:lambda:path/2015-03-31/functions/${get_group_members_lambda}/invocations"
         responses:
           ^\[InternalServiceError\].*:
             statusCode: "500"
@@ -388,7 +388,7 @@ paths:
       security:
       - Auth0Authorizer: []
       x-amazon-apigateway-integration:
-        uri: "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/${delete_user_from_groups_lambda}/invocations"
+        uri: "arn:aws:apigateway:us-west-1:lambda:path/2015-03-31/functions/${delete_user_from_groups_lambda}/invocations"
         responses:
           ^\[InternalServiceError\].*:
             statusCode: "500"
@@ -451,7 +451,7 @@ paths:
       security:
       - Auth0Authorizer: []
       x-amazon-apigateway-integration:
-        uri: "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/${add_group_members_lambda}/invocations"
+        uri: "arn:aws:apigateway:us-west-1:lambda:path/2015-03-31/functions/${add_group_members_lambda}/invocations"
         responses:
           ^\[InternalServiceError\].*:
             statusCode: "500"
@@ -529,7 +529,7 @@ paths:
       security:
       - Auth0Authorizer: []
       x-amazon-apigateway-integration:
-        uri: "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/${get_group_permissions_lambda}/invocations"
+        uri: "arn:aws:apigateway:us-west-1:lambda:path/2015-03-31/functions/${get_group_permissions_lambda}/invocations"
         responses:
           ^\[InternalServiceError\].*:
             statusCode: "500"
@@ -591,7 +591,7 @@ paths:
       security:
       - Auth0Authorizer: []
       x-amazon-apigateway-integration:
-        uri: "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/${delete_group_permissions_lambda}/invocations"
+        uri: "arn:aws:apigateway:us-west-1:lambda:path/2015-03-31/functions/${delete_group_permissions_lambda}/invocations"
         responses:
           ^\[InternalServiceError\].*:
             statusCode: "500"
@@ -654,7 +654,7 @@ paths:
       security:
       - Auth0Authorizer: []
       x-amazon-apigateway-integration:
-        uri: "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/${add_group_permissions_lambda}/invocations"
+        uri: "arn:aws:apigateway:us-west-1:lambda:path/2015-03-31/functions/${add_group_permissions_lambda}/invocations"
         responses:
           ^\[InternalServiceError\].*:
             statusCode: "500"
@@ -703,7 +703,7 @@ paths:
       security:
       - Auth0Authorizer: []
       x-amazon-apigateway-integration:
-        uri: "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/${get_all_ops_groups_lambda}/invocations"
+        uri: "arn:aws:apigateway:us-west-1:lambda:path/2015-03-31/functions/${get_all_ops_groups_lambda}/invocations"
         responses:
           default:
             statusCode: "200"
@@ -749,7 +749,7 @@ paths:
       security:
       - Auth0Authorizer: []
       x-amazon-apigateway-integration:
-        uri: "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/${update_ops_members_lambda}/invocations"
+        uri: "arn:aws:apigateway:us-west-1:lambda:path/2015-03-31/functions/${update_ops_members_lambda}/invocations"
         responses:
           ^\[InternalServiceError\].*:
             statusCode: "500"
@@ -802,7 +802,7 @@ paths:
       security:
       - Auth0Authorizer: []
       x-amazon-apigateway-integration:
-        uri: "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/${get_all_permissions_lambda}/invocations"
+        uri: "arn:aws:apigateway:us-west-1:lambda:path/2015-03-31/functions/${get_all_permissions_lambda}/invocations"
         responses:
           default:
             statusCode: "200"
@@ -852,7 +852,7 @@ paths:
       security:
       - Auth0Authorizer: []
       x-amazon-apigateway-integration:
-        uri: "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/${save_permission_lambda}/invocations"
+        uri: "arn:aws:apigateway:us-west-1:lambda:path/2015-03-31/functions/${save_permission_lambda}/invocations"
         responses:
           ^\[InternalServiceError\].*:
             statusCode: "500"
@@ -919,7 +919,7 @@ paths:
       security:
       - Auth0Authorizer: []
       x-amazon-apigateway-integration:
-        uri: "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/${delete_permission_lambda}/invocations"
+        uri: "arn:aws:apigateway:us-west-1:lambda:path/2015-03-31/functions/${delete_permission_lambda}/invocations"
         responses:
           ^\[InternalServiceError\].*:
             statusCode: "500"
@@ -986,7 +986,7 @@ paths:
       security:
       - Auth0Authorizer: []
       x-amazon-apigateway-integration:
-        uri: "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/${get_all_users_lambda}/invocations"
+        uri: "arn:aws:apigateway:us-west-1:lambda:path/2015-03-31/functions/${get_all_users_lambda}/invocations"
         responses:
           default:
             statusCode: "200"
@@ -1045,7 +1045,7 @@ paths:
       security:
       - Auth0Authorizer: []
       x-amazon-apigateway-integration:
-        uri: "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/${save_user_lambda}/invocations"
+        uri: "arn:aws:apigateway:us-west-1:lambda:path/2015-03-31/functions/${save_user_lambda}/invocations"
         responses:
           ^\[InternalServiceError\].*:
             statusCode: "500"
@@ -1107,7 +1107,7 @@ paths:
       security:
       - Auth0Authorizer: []
       x-amazon-apigateway-integration:
-        uri: "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/${get_user_by_email_lambda}/invocations"
+        uri: "arn:aws:apigateway:us-west-1:lambda:path/2015-03-31/functions/${get_user_by_email_lambda}/invocations"
         responses:
           default:
             statusCode: "200"
@@ -1163,7 +1163,7 @@ paths:
       security:
       - Auth0Authorizer: []
       x-amazon-apigateway-integration:
-        uri: "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/${change_user_password_lambda}/invocations"
+        uri: "arn:aws:apigateway:us-west-1:lambda:path/2015-03-31/functions/${change_user_password_lambda}/invocations"
         responses:
           default:
             statusCode: "200"
@@ -1218,7 +1218,7 @@ paths:
       security:
       - Auth0Authorizer: []
       x-amazon-apigateway-integration:
-        uri: "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/${get_refresh_tokens_lambda}/invocations"
+        uri: "arn:aws:apigateway:us-west-1:lambda:path/2015-03-31/functions/${get_refresh_tokens_lambda}/invocations"
         responses:
           ^\[InternalServiceError\].*:
             statusCode: "500"
@@ -1255,7 +1255,7 @@ paths:
       security:
       - Auth0Authorizer: []
       x-amazon-apigateway-integration:
-        uri: "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/${revoke_refresh_tokens_lambda}/invocations"
+        uri: "arn:aws:apigateway:us-west-1:lambda:path/2015-03-31/functions/${revoke_refresh_tokens_lambda}/invocations"
         responses:
           ^\[InternalServiceError\].*:
             statusCode: "500"
@@ -1301,7 +1301,7 @@ paths:
       security:
       - Auth0Authorizer: []
       x-amazon-apigateway-integration:
-        uri: "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/${unblock_user_lambda}/invocations"
+        uri: "arn:aws:apigateway:us-west-1:lambda:path/2015-03-31/functions/${unblock_user_lambda}/invocations"
         responses:
           default:
             statusCode: "200"
@@ -1351,7 +1351,7 @@ paths:
       security:
       - Auth0Authorizer: []
       x-amazon-apigateway-integration:
-        uri: "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/${get_user_by_username_lambda}/invocations"
+        uri: "arn:aws:apigateway:us-west-1:lambda:path/2015-03-31/functions/${get_user_by_username_lambda}/invocations"
         responses:
           default:
             statusCode: "200"
@@ -1413,7 +1413,7 @@ paths:
       security:
       - Auth0Authorizer: []
       x-amazon-apigateway-integration:
-        uri: "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/${update_username_lambda}/invocations"
+        uri: "arn:aws:apigateway:us-west-1:lambda:path/2015-03-31/functions/${update_username_lambda}/invocations"
         responses:
           ^\[InternalServiceError\].*:
             statusCode: "500"
@@ -1480,7 +1480,7 @@ paths:
       security:
       - Auth0Authorizer: []
       x-amazon-apigateway-integration:
-        uri: "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/${get_user_by_id_lambda}/invocations"
+        uri: "arn:aws:apigateway:us-west-1:lambda:path/2015-03-31/functions/${get_user_by_id_lambda}/invocations"
         responses:
           ^\[InternalServiceError\].*:
             statusCode: "500"
@@ -1543,7 +1543,7 @@ paths:
       security:
       - Auth0Authorizer: []
       x-amazon-apigateway-integration:
-        uri: "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/${delete_user_lambda}/invocations"
+        uri: "arn:aws:apigateway:us-west-1:lambda:path/2015-03-31/functions/${delete_user_lambda}/invocations"
         responses:
           ^\[InternalServiceError\].*:
             statusCode: "500"
@@ -1613,7 +1613,7 @@ paths:
       security:
       - Auth0Authorizer: []
       x-amazon-apigateway-integration:
-        uri: "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/${update_user_lambda}/invocations"
+        uri: "arn:aws:apigateway:us-west-1:lambda:path/2015-03-31/functions/${update_user_lambda}/invocations"
         responses:
           ^\[InternalServiceError\].*:
             statusCode: "500"
@@ -1680,7 +1680,7 @@ paths:
       security:
       - Auth0Authorizer: []
       x-amazon-apigateway-integration:
-        uri: "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/${get_user_groups_lambda}/invocations"
+        uri: "arn:aws:apigateway:us-west-1:lambda:path/2015-03-31/functions/${get_user_groups_lambda}/invocations"
         responses:
           ^\[InternalServiceError\].*:
             statusCode: "500"
@@ -1736,7 +1736,7 @@ paths:
       security:
       - Auth0Authorizer: []
       x-amazon-apigateway-integration:
-        uri: "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/${add_user_to_groups_lambda}/invocations"
+        uri: "arn:aws:apigateway:us-west-1:lambda:path/2015-03-31/functions/${add_user_to_groups_lambda}/invocations"
         responses:
           ^\[InternalServiceError\].*:
             statusCode: "500"
@@ -1796,7 +1796,7 @@ paths:
       security:
       - Auth0Authorizer: []
       x-amazon-apigateway-integration:
-        uri: "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/${delete_user_from_groups_lambda}/invocations"
+        uri: "arn:aws:apigateway:us-west-1:lambda:path/2015-03-31/functions/${delete_user_from_groups_lambda}/invocations"
         responses:
           ^\[InternalServiceError\].*:
             statusCode: "500"
@@ -1834,7 +1834,7 @@ securityDefinitions:
     in: "header"
     x-amazon-apigateway-authtype: "custom"
     x-amazon-apigateway-authorizer:
-      authorizerUri: "arn:aws:apigateway:ap-southeast-1:lambda:path/2015-03-31/functions/${authoriser_lambda}/invocations"
+      authorizerUri: "arn:aws:apigateway:us-west-1:lambda:path/2015-03-31/functions/${authoriser_lambda}/invocations"
       authorizerResultTtlInSeconds: 300
       identityValidationExpression: "^Bearer [A-Za-z0-9-_]+\\.[A-Za-z0-9-_]+\\.[A-Za-z0-9-_.+\\\
         /]+$"

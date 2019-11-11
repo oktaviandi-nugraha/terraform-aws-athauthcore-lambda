@@ -1,14 +1,7 @@
 locals {
   product_domain = "ath"
   service_name   = "athauth"
-  lambda_runtime = "nodejs10.x"
-
   lambda_handler = "lib.default"
-
-  lambda_memory_size = "256"
-
-  lambda_timeout = "300"
-
   get_all_group_lambda_name = "get_all_group"
 
   save_group_lambda_name = "save_group"
