@@ -874,10 +874,6 @@ paths:
                 \  "
           default:
             statusCode: "200"
-            responseTemplates:
-              application/json: "      {\n        \"id\": $input.json('$._id'),\n\
-                \        \"name\": $input.json('$.name'),\n        \"description\"\
-                : $input.json('$.description')\n      }\n  "
           ^\[BadRequest\].*:
             statusCode: "400"
             responseTemplates:
