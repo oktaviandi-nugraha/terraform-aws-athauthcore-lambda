@@ -376,11 +376,6 @@ paths:
         in: "path"
         required: true
         type: "string"
-      - in: "body"
-        name: "AddGroupPermissionRequest"
-        required: true
-        schema:
-          $ref: "#/definitions/AddGroupPermissionRequest"
       responses:
         200:
           description: "200 response"
@@ -422,7 +417,7 @@ paths:
                 \        \"errorMessage\": $input.json('$.errorMessage')\n      }\n\
                 \  "
         requestTemplates:
-          application/json: "{\n\"id\": $input.params('$.id'),\n\"audience\": $input.json('$.audience'),\n\
+          application/json: "{\n\"id\": \"$input.params('id')\",\n\"audience\": $input.json('$.audience'),\n\
             \"permissions\": $input.json('$.permissions'),\n\"client_id\": \"$input.params('application')\"\
             ,\n\"api_request_id\": \"$input.params('API-Request-Id')\",\n\"api_client_id\"\
             : \"$input.params('API-Client-Id')\"\n}\n"
@@ -525,8 +520,6 @@ paths:
       responses:
         200:
           description: "200 response"
-          schema:
-            $ref: "#/definitions/GroupMembershipResponse"
         500:
           description: "500 response"
           schema:
