@@ -434,10 +434,6 @@ paths:
         in: "path"
         required: true
         type: "string"
-      - name: "audience"
-        in: "query"
-        required: true
-        type: "string"
       - name: "Authorization"
         in: "header"
         required: true
@@ -490,7 +486,7 @@ paths:
           application/json: "{\n\"id\": \"$input.params('id')\",\n\"client_id\": \"\
             $input.params('application')\",\n\"api_request_id\": \"$input.params('API-Request-Id')\"\
             ,\n\"api_client_id\": \"$input.params('API-Client-Id')\",\n\"audience\"\
-            : \"$input.params('audience')\"\n}\n"
+            : $input.json('$.audience'),\n\"permissions\": $input.json('$.permissions')\n}\n"
         passthroughBehavior: "never"
         httpMethod: "POST"
         type: "aws"
