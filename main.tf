@@ -261,8 +261,8 @@ resource "aws_api_gateway_method_settings" "v1" {
     metrics_enabled        = false
     logging_level          = "INFO"
     cache_ttl_in_seconds   = 300
-    throttling_burst_limit = 5000
-    throttling_rate_limit  = 10000
+    throttling_burst_limit = 300
+    throttling_rate_limit  = 100
   }
 }
 
