@@ -231,3 +231,13 @@ variable "lambda_timeout" {
   type        = "string"
   description = "The timeout of lambda execution"
 }
+
+variable "fqdn" {
+  type        = "string"
+  description = "FQDN of the api gateway"
+}
+
+variable "zone_id" {
+  type        = "string"
+  description = "Route 53 zone id"
+}
