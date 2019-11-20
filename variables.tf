@@ -241,3 +241,18 @@ variable "zone_id" {
   type        = "string"
   description = "Route 53 zone id"
 }
+
+variable "rate_limit" {
+  type = "string"
+  description = "API Gateway rate limit" 
+}
+
+variable "burst_limit" {
+  type = "string"
+  description = "API Gateway burst limit" 
+}
+
+variable "cache_ttl" {
+  type = "string"
+  description = "API Gateway cache ttl" 
+}
