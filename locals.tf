@@ -70,6 +70,8 @@ locals {
     AUTH0_CLIENT_ID    = "${var.auth0_client_id}"
     AUTH0_MGMT_API_URL = "${var.auth0_mgmt_api_url}"
     EXTENSION_API_URL  = "${var.extension_api_url}"
+    INVALID_DOMAIN     = "${var.invalid_domain}"
+    INVALID_CONNECTION = "${var.invalid_connection}"
   }
 
   authoriser_environment_variables = {

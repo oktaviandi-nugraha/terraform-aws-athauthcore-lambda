@@ -243,16 +243,28 @@ variable "zone_id" {
 }
 
 variable "rate_limit" {
-  type = "string"
-  description = "API Gateway rate limit" 
+  type        = "string"
+  description = "API Gateway rate limit"
 }
 
 variable "burst_limit" {
-  type = "string"
-  description = "API Gateway burst limit" 
+  type        = "string"
+  description = "API Gateway burst limit"
 }
 
 variable "cache_ttl" {
-  type = "string"
-  description = "API Gateway cache ttl" 
+  type        = "string"
+  description = "API Gateway cache ttl"
+}
+
+variable "invalid_domain" {
+  type        = "string"
+  description = "The email domain that is blacklisted on user management"
+  default     = "@traveloka.com"
+}
+
+variable "invalid_connection" {
+  type        = "string"
+  description = "The connection that is blacklisted on user management"
+  default     = "Username-Password-Authentication"
 }
